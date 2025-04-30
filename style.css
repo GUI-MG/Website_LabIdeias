@@ -1,0 +1,111 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Navbar personalizada */
+  .navbar {
+    box-shadow: 0 2px 4px rgba(2, 33, 11, 0.1);
+  }
+  
+  .navbar-brand img {
+    max-height: 150px;
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    margin-right: 1rem;
+  }
+  
+  .nav-link:hover {
+    color: #0056b3;
+  }
+  
+  /* Seções */
+  section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  
+  section#home {
+    background: url('../img/banner.jpg') no-repeat center center/cover;
+    color: #0c4318;
+  }
+  
+  section#home h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color:#222;
+  }
+  
+  section#home p {
+    font-size: 1.25rem;
+  }
+  
+  /* Títulos de seção */
+  section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+  }
+  
+  section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #007bff;
+    margin-top: 0.5rem;
+  }
+  
+  /* Cards de equipe/projetos */
+  .card-custom {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+  }
+  
+  .card-custom:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Rodapé */
+  footer {
+    background-color: #222;
+    color: #bbb;
+  }
+  
+  footer small {
+    font-size: 0.875rem;
+  }
+  
+  /* Formulário de cadastro de ideias */
+  .form-idea {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-idea .form-control,
+  .form-idea .btn {
+    border-radius: 0.25rem;
+  }
+  
+  .form-idea .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .form-idea .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    section#home h1 {
+      font-size: 2rem;
+    }
+  }
