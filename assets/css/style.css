@@ -9,10 +9,11 @@ body {
   /* Navbar personalizada */
   .navbar {
     box-shadow: 0 2px 4px rgba(2, 33, 11, 0.1);
+    background-color: #0c4318;
   }
   
   .navbar-brand img {
-    max-height: 400px;
+    max-height: 320px;
   }
   
   .nav-link {
@@ -64,7 +65,6 @@ body {
   
   /* Cards de equipe/projetos */
   .card-custom {
-    background: #0c4318;
     border: none;
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
