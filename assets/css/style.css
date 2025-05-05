@@ -59,8 +59,17 @@ nav div.container {
 
   section#home div.container {
     height: 120px;
+    width: 90%;
   }
   
+  section#Objetivos div.container {
+    max-width: 90%;
+    width: 90%;
+    border-radius: 2px 3px gray;
+    background-color: gray;
+    justify-content: left;
+
+  }
   /* Títulos de seção */
   section h2 {
     margin-bottom: 1.5rem;
