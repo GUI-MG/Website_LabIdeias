@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db   = 'laboratorio_ideais';
+$db   = 'bd_projetos_ideais';
 
 // Conexão
 $conn = new mysqli($host, $user, $pass, $db);

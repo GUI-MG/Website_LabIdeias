@@ -10,7 +10,27 @@ if ($conn->connect_error) {
   die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Buscar lista de projetos
+// Se for uma chamada AJAX, retorna conteúdo em JSON e encerra aqui
+if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
+  $id = intval($_GET['id']);
+  $tipo = $_GET['tipo'] === 'descricao' ? 'descricao' : 'resumo';
+
+  $stmt = $conn->prepare("SELECT $tipo FROM projeto WHERE id = ?");
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($row = $result->fetch_assoc()) {
+    echo json_encode(['conteudo' => $row[$tipo]]);
+  } else {
+    echo json_encode(['conteudo' => 'Projeto não encontrado.']);
+  }
+  $stmt->close();
+  $conn->close();
+  exit; // Finaliza para evitar exibir o HTML
+}
+
+// Caso contrário, é o carregamento da página normal
 $sql = "SELECT id, titulo FROM projeto";
 $result = $conn->query($sql);
 ?>
@@ -50,7 +70,7 @@ $result = $conn->query($sql);
 
   <!-- Exibição do conteúdo -->
   <div id="conteudoProjeto" class="mt-4" style="display: none;">
-    <h4 id="tipoTitulo">Resumo do Projeto:</h4>
+    <h4 id="tipoTitulo"></h4>
     <p id="conteudoTexto"></p>
   </div>
 </div>
@@ -66,7 +86,7 @@ function buscarConteudo() {
     return;
   }
 
-  fetch(`get_projeto.php?id=${projetoId}&tipo=${tipo}`)
+  fetch(`<?php echo $_SERVER['PHP_SELF']; ?>?ajax=1&id=${projetoId}&tipo=${tipo}`)
     .then(response => response.json())
     .then(data => {
       document.getElementById('conteudoProjeto').style.display = 'block';

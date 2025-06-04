@@ -1,5 +1,5 @@
 <?php
-require_once 'db.php';
+require 'db.php';
 // Inicializa variáveis de feedback
 $success = '';
 $error = '';
