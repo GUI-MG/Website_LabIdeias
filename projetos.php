@@ -5,10 +5,6 @@ $db   = 'bd_projetos_ideias';
 $user = 'root';
 $pass = '';
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Conexão falhou: " . $conn->connect_error);
-}
 
 // Se for uma chamada AJAX, retorna conteúdo em JSON e encerra aqui
 if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
