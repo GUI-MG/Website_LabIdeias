@@ -57,7 +57,7 @@
     <div class="container">
       <h2>Projetos</h2>
       <ul>
-        <button><a href="projetos.php"><h4>Ver projetos</h4></a></button>
+        <button><a href="projetos.php"><h5>Ver projetos</h5></a></button>
       </ul>
 
   <!-- Equipe -->
