@@ -119,6 +119,8 @@ body {
   footer {
     background-color: #222;
     color: #bbb;
+    max-width: 100%;
+    width: 100%;
   }
   
   footer small {

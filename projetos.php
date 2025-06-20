@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Conexão com o banco de dados
 $host = 'localhost';
 $db   = 'bd_projetos_ideias';
@@ -6,18 +6,13 @@ $user = 'root';
 $pass = '';
 $conn = new mysqli($host, $user, $pass, $db);
 
-// Verifica conexão
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
-
-// Se for uma chamado AJAX, responde o conteúdo em JSON e encerra
+// Se for uma chamada AJAX, retorna conteúdo em JSON e encerra aqui
 if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
     $id = intval($_GET['id']);
     $tipo = ($_GET['tipo'] === 'descricao') ? 'descricao' : 'resumo';
 
     // Evita interpolar diretamente na SQL
-    $stmt = $conn->prepare("SELECT `$tipo` FROM Projetos WHERE id = ?");
+    $stmt = $conn->prepare("SELECT `$tipo` FROM projeto WHERE id = ?");
     if ($stmt) {
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -37,6 +32,10 @@ if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
     $conn->close();
     exit; // Finaliza para evitar exibir o HTML
 }
+
+// Caso contrário, é o carregamento da página normal
+$sql = "SELECT id, titulo FROM projeto";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +55,9 @@ if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
     <div class="mb-3">
       <label for="projetoSelect" class="form-label">Projeto:</label>
       <select id="projetoSelect" class="form-select" onchange="buscarConteudo()">
-        <option value="">Selecione um Projeto</option>
+        <option value="">Selecione um projeto</option>
         <?php while($row = $result->fetch_assoc()): ?>
-          <option value="<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['titulo']); ?> </option>
+          <option value="<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['titulo']); ?></option>
         <?php endwhile; ?>
       </select>
     </div>
@@ -73,7 +72,7 @@ if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
   </form>
 
   <!-- Exibição do conteúdo -->
-  <div id="conteudoProjeto" class="mt-4" style="display: none">
+  <div id="conteudoProjeto" class="mt-4" style="display: none;">
     <h4 id="tipoTitulo"></h4>
     <p id="conteudoTexto"></p>
   </div>
@@ -91,16 +90,14 @@ function buscarConteudo() {
   }
 
   fetch(`<?php echo $_SERVER['PHP_SELF']; ?>?ajax=1&id=${projetoId}&tipo=${tipo}`)
-    .then(response => response.json()) 
+    .then(response => response.json())
     .then(data => {
-      document.getElementById('conteudoProjeto').style.display = '';
-      document.getElementById('tipoTitulo').innerText = 
-        (tipo.charAt(0).toUpperCase() + tipo.slice(1)) + " do Projeto:";
-      document.getElementById('conteudoTexto').innerText = 
-        data.conteudo ? data.conteudo : 'Conteúdo não disponível';
+      document.getElementById('conteudoProjeto').style.display = 'block';
+      document.getElementById('tipoTitulo').innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1) + ' do Projeto:';
+      document.getElementById('conteudoTexto').innerText = data.conteudo || 'Conteúdo não disponível.';
     })
     .catch(error => {
-      console.error('Erro!', error);
+      console.error('Erro:', error);
     });
 }
 </script>
@@ -109,3 +106,5 @@ function buscarConteudo() {
 </html>
 
 <?php $conn->close(); ?>
+
+

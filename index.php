@@ -56,9 +56,8 @@
   <section id="projetos" class="py-5 bg-light">
     <div class="container">
       <h2>Projetos</h2>
-      <ul>
-        <button><a href="projetos.php"><h5>Ver projetos</h5></a></button>
-      </ul>
+      
+
 
   <!-- Equipe -->
   <section id="equipe" class="py-5">
