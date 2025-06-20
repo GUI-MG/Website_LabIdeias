@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <?php include 'navbar.php'; ?>
 <div class="container py-5">
-  <h2 class="mb-4">Cadastrar Ideia</h2>
+  <h1 class="mb-4">Cadastrar Ideia:</h1>
   <?php if ($success): ?>
     <div class="alert alert-success"><?php echo $success; ?></div>
   <?php endif; ?>
@@ -44,15 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
   <form method="post" class="form-idea">
     <div class="mb-3">
-      <label for="titulo" class="form-label">Título</label>
+      <label for="titulo" class="form-label">Título:</label>
       <input type="text" name="titulo" id="titulo" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="descricao" class="form-label">Descrição</label>
+      <label for="descricao" class="form-label">Descrição:</label>
       <textarea name="descricao" id="descricao" rows="5" class="form-control" required></textarea>
     </div>
     <div class="mb-3">
-      <label for="email" class="form-label">E-mail</label>
+      <label for="email" class="form-label">E-mail:</label>
       <input type="email" name="email" id="email" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>

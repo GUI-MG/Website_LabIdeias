@@ -79,12 +79,8 @@ body {
 
   }
 
-  section#projetos button {
-    border-color: none;
-    border-radius: 20px;
-    align-items: center;
-    border-width: 0px;
-    background: #fffeee;
+  section#projetos ul a h6 {
+    font-size: 2rem;
   }
   /* Títulos de seção */
   section h2 {
