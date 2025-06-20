@@ -61,7 +61,7 @@
       ?>
       <ul>
         <button><a href="projetos.php"><h6>Ver mais</h6></a></button>
-      </ul>
+</ul>
 
   <!-- Equipe -->
   <section id="equipe" class="py-5">
