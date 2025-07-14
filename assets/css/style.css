@@ -55,6 +55,9 @@ body {
     margin-top: 0%;
   }
   
+  section#home a img {
+    align-items: auto;
+  }
   section#home h1 {
     font-size: 3rem;
     font-weight: 400;
@@ -66,8 +69,10 @@ body {
   }
 
   section#home div.container {
-    height: 70px;
+    max-width: 90%;
     width: 90%;
+    max-height: 90%;
+    height: 90%;
   }
   
   section#Objetivos div.container {
@@ -79,8 +84,8 @@ body {
 
   }
 
-  section#projetos ul a h6 {
-    font-size: 2rem;
+  section#projetos ul button a {
+    border-radius: 40px;
   }
   /* Títulos de seção */
   section h2 {

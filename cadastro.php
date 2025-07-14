@@ -25,17 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastrar Ideia - Laboratório de Ideais</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastrar Ideia - Laboratório de Ideais</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
 <?php include 'navbar.php'; ?>
 <div class="container py-5">
-  <h1 class="mb-4">Cadastrar Ideia:</h1>
+  <h2 class="mb-4">Cadastrar Ideia:</h2>
+  <h6><b>Observação:</b></h6><p>No cadastro de ideas, tendes de informar o título de sua respectiva ideia, explicá-la com uma breve descrição e, por fim, incluir um e-mail para contato, caso sua ideia seja contemplada com algum desenvolvimento.</p>
   <?php if ($success): ?>
     <div class="alert alert-success"><?php echo $success; ?></div>
   <?php endif; ?>
@@ -58,8 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 </div>
-<?php include 'footer.php'; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<?php include 'footer.php'?>
 </body>
 </html>

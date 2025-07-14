@@ -15,7 +15,10 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="320">
+        <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="220">
+      </a>
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logoIfrs.png" alt="Logo IFRS" height="320">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -32,11 +35,24 @@
     </div>
   </nav>
 
-  <!-- Home Section -->
   <section id="home" class="py-5 text-center bg-light">
     <div class="container">
-      <h1>Bem-vindo ao Laboratório de Ideias</h1>
+      <h1>Laboratório de Ideias</h1>
       <p>Aprendendo e criando inovações.</p>
+    </div>
+  </section>
+  
+  <!-- Home Section -->
+  <section id="presentation" class="py-5 bg-light">
+    <div class="container">
+      <h2>Início</h2>
+      <h4><b>Seja muito bem vindo!</b></h4>
+      <p>O Laboratório de Ideias é um Projeto de Ensino na qual visa fomentar a criatividade e a curiosidade de seus participantes, 
+        além de desenvolver soluções para problemas e demandas. Por conseguinte, o Laboratório de Ideias é voltado, não somente à resolução de demandas, mas também ao aprendizado dos participantes que auxiliam na mesma.
+        Para tal, abaixo tem-se mais informações sobre o mesmo, seus objetivos, participações, soluções já desenvolvidas, integrantes e, inclusive, o cadastro de alguma ideia de demanda que possuas e que queiras compartilhar conosco.
+        Tens uma ideia ou demanda que queiras compartilhar conosco? Clique abaixo e cadastre-a!
+      </p>
+      <button><a href="cadastro.php">Cadastrar</a></button>
     </div>
   </section>
 
@@ -59,9 +75,8 @@
       <?php
       require 'exibirprojetos.php'
       ?>
-      <ul>
-        <button><a href="projetos.php"><h6>Ver mais</h6></a></button>
-</ul>
+      <button><a href="projetos.php"><h8>Ver mais</h8></a></button>
+      
 
   <!-- Equipe -->
   <section id="equipe" class="py-5">
