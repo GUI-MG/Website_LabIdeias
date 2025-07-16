@@ -52,7 +52,7 @@
         Para tal, abaixo tem-se mais informações sobre o mesmo, seus objetivos, participações, soluções já desenvolvidas, integrantes e, inclusive, o cadastro de alguma ideia de demanda que possuas e que queiras compartilhar conosco.
         Tens uma ideia ou demanda que queiras compartilhar conosco? Clique abaixo e cadastre-a!
       </p>
-      <ul><button><a href="cadastro.php">Cadastrar</a></button></ul>
+      <button><a href="cadastro.php">Cadastrar</a></button>
     </div>
   </section>
 
