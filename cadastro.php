@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'navbar.php'; ?>
 <div class="container py-5">
   <h2 class="mb-4">Cadastrar Ideia:</h2>
-  <h6><b>Observação:</b></h6><p>No cadastro de ideas, tendes de informar o título de sua respectiva ideia, explicá-la com uma breve descrição e, por fim, incluir um e-mail para contato, caso sua ideia seja contemplada com algum desenvolvimento.</p>
+  <h6><b>Observação:</b></h6><p>No cadastro de ideias, tendes de informar o título de sua respectiva ideia, explicá-la com uma breve descrição e, por fim, incluir um e-mail para contato, caso sua ideia seja contemplada com algum desenvolvimento ou algo nesse sentido.</p>
   <?php if ($success): ?>
     <div class="alert alert-success"><?php echo $success; ?></div>
   <?php endif; ?>
