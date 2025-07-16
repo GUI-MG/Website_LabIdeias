@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="#">
@@ -11,8 +12,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.php#presentation">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="admin.php">Administrar</a></li>
+          <li class="nav-item">
+          <a class="nav-link" href="index.php#">
+            <i class="bi bi-house-fill"></i> Início
+          </a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin.php">
+              <i class="bi bi-gear"></i> Administrar
+            </a>
+          </li>
         </ul>
       </div>
     </div>
