@@ -21,7 +21,7 @@
         <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="220">
       </a>
       <a class="navbar-brand" href="#">
-        <img src="assets/img/logoIfrs.png" alt="Logo IFRS" height="320">
+        <img src="assets/img/LogoIfrs.png" alt="Logo IFRS" height="320">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -101,7 +101,7 @@
       
 
   <!-- Equipe -->
-  <section id="objetivos" class="py-5 bg-light">
+  <section id="equipe" class="py-5 bg-light">
     <div class="container">
       <h2><i class="bi bi-people-fill"></i> Equipe</h2>
       <h5><b>Membros Atuais:</b></h5>
