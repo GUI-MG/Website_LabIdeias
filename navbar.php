@@ -5,7 +5,7 @@
         <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="320">
       </a>
       <a class="navbar-brand" href="#">
-        <img src="assets/img/LogoIfrs.png" alt="Logo IFRS" height="320">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="320">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>

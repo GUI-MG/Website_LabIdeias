@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title src="assets/img/logo.png">Laboratório de Ideias</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  </head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <!-- Custom CSS -->
+   <link href="assets/css/reset.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
+  
 </head>
 <body>
-
+  
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Navbar -->
@@ -21,7 +24,7 @@
         <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="220">
       </a>
       <a class="navbar-brand" href="#">
-        <img src="assets/img/LogoIfrs.png" alt="Logo IFRS" height="320">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="320">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
