@@ -120,12 +120,6 @@ $conn->close();
                   <label for="senha" class="form-label">Senha</label>
                   <input type="password" class="form-control" name="senha" id="senha" required>
                 </div>
-                <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" value="1" name="termos" id="termos" required>
-                  <label class="form-check-label" for="termos">
-                    Faço parte do Laboratório de Ideias como bolsista, orientador, co-orientador ou voluntário.
-                  </label>
-                </div>
                 <button type="submit" class="btn btn-primary w-100">
                   <i class="bi bi-check-circle-fill"></i> Cadastrar
                 </button>

@@ -82,6 +82,7 @@ $conn->close();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a></li>
+                <li class="nav-item"><a class="nav-link" href="cadastro.php"><i class="bi bi-pen"></i> Voltar</a></li>
             </ul>
         </div>
     </div>
