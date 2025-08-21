@@ -1,7 +1,7 @@
 <?php
 // Configurações de conexão com o banco
 $host = 'localhost';
-$db   = 'bd_projetos_ideias';
+$db   = 'bd_ideias_projetos';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';

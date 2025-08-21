@@ -18,7 +18,7 @@
           </a>
         </li>
           <li class="nav-item">
-            <a class="nav-link" href="manage.php">
+            <a class="nav-link" href="login.php">
               <i class="bi bi-gear"></i> Administrar
             </a>
           </li>
