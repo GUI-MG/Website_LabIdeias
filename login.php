@@ -1,12 +1,13 @@
 <?php
 session_start(); // Inicia a sessão
 
+// Dados de conexão
 $host = 'localhost';
-$db = 'bd_ideias_projetos';
+$db   = 'bd_ideias_projetos';
 $user = 'root';
 $pass = '';
 
-// Conectar ao banco
+// Conexão com o banco
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
@@ -14,43 +15,38 @@ if ($conn->connect_error) {
 
 $mensagem = '';
 
+
+// Processar formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario'] ?? '');
-    $senha = trim($_POST['senha'] ?? '');
+    $senha   = trim($_POST['senha'] ?? '');
 
     if (!empty($usuario) && !empty($senha)) {
-
-        if ($usuario !== 'administrador') {
-            $mensagem = '<div class="alert alert-danger text-center" role="alert">Apenas o usuário administrador pode acessar.</div>';
-        } else {
-            $usuario = $conn->real_escape_string($usuario);
+            $usuario   = $conn->real_escape_string($usuario);
             $senhaHash = hash('sha256', $senha); // Criptografar senha
 
-            // Prepared statement para maior segurança
+            // Verificar credenciais
             $stmt = $conn->prepare("SELECT id FROM usuarios WHERE usuario = ? AND senha = ?");
             $stmt->bind_param("ss", $usuario, $senhaHash);
             $stmt->execute();
             $stmt->store_result();
 
             if ($stmt->num_rows === 1) {
-                // Login bem-sucedido
                 $_SESSION['usuario'] = $usuario;
-                header("Location: manage.php"); // Redireciona para gerenciamento de ideias
+                header("Location: manage.php");
                 exit;
             } else {
                 $mensagem = '<div class="alert alert-danger text-center" role="alert">Usuário ou senha inválidos!</div>';
             }
             $stmt->close();
         }
-
-    } else {
+     else {
         $mensagem = '<div class="alert alert-warning text-center" role="alert">Preencha todos os campos.</div>';
     }
 }
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -104,10 +100,17 @@ $conn->close();
                             <label for="usuario" class="form-label">Usuário</label>
                             <input type="text" class="form-control" name="usuario" id="usuario" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="senha" class="form-label">Senha</label>
-                            <input type="password" class="form-control" name="senha" id="senha" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="senha" id="senha" required>
+                                <button type="button" class="btn btn-outline-secondary" id="toggleSenha">
+                                    <i class="bi bi-eye" id="iconSenha"></i>
+                                </button>
+                            </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="bi bi-box-arrow-in-right"></i> Entrar
                         </button>
@@ -133,5 +136,22 @@ $conn->close();
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script para mostrar/ocultar senha -->
+<script>
+    const toggleSenha = document.getElementById('toggleSenha');
+    const senhaInput  = document.getElementById('senha');
+    const iconSenha   = document.getElementById('iconSenha');
+
+    toggleSenha.addEventListener('click', () => {
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            iconSenha.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            senhaInput.type = 'password';
+            iconSenha.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    });
+</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 session_start(); // Inicia a sessão
 
 // Verifica se o usuário logado é o administrador
-if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'administrador') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'administrador') { 
     // Redireciona para login se não for administrador
     header("Location: login.php");
     exit;
@@ -23,10 +23,9 @@ $mensagem = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
-    $termos = $_POST['termos'] ?? '';
-
-    if (empty($usuario) || empty($senha) || empty($termos)) {
-        $mensagem = '<div class="alert alert-danger text-center" role="alert">Preencha todos os campos e marque a caixa de termos.</div>';
+  
+    if (empty($usuario) || empty($senha)) {
+        $mensagem = '<div class="alert alert-danger text-center" role="alert">Preencha todos os campos!</div>';
     } else {
         $senhaHash = hash('sha256', $senha);
 
