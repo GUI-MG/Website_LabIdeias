@@ -63,8 +63,8 @@ $result = $conn->query($sql);
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="cadusuarios.php">
-              <i class="bi bi-person-plus-fill"></i> Cadastrar usuário
+            <a class="nav-link" href="dashboard.php">
+              <i class="bi bi-arrow-return-right"></i> Voltar
             </a>
           </li>
         </ul>
@@ -74,7 +74,7 @@ $result = $conn->query($sql);
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="container py-5">
-    <h2 class="mb-4">Gerenciar Ideias</h2>
+    <h2 class="text-center mb-4"><i class="bi bi-lightbulb"></i>Gerenciar Ideias</h2>
     <form class="d-flex mb-3" method="get">
       <input class="form-control me-2" type="search" name="search" 
              value="<?php echo htmlspecialchars($search); ?>" placeholder="Pesquisar...">

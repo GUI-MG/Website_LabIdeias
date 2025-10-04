@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db = 'bd_ideias_projetos';
+$db = 'bd_lab_ideias';
 $conn = new mysqli($host, $user, $pass, $db);
 
 
@@ -47,7 +47,42 @@ $result = $conn->query($sql);
   <title>Projetos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<style>
+  nav {
+    background: linear-gradient(to right, rgb(80, 230, 70), rgb(80, 160, 60));
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  main {
+        flex: 1; /* ocupa o espaço antes do footer */
+  }
+</style>
+
 <body>
+ 
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="190">
+      </a>
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="190">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php"><i class="bi bi-arrow-return-right"></i> Voltar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 <div class="container mt-5">
   <h2>Selecionar Projeto</h2>
@@ -104,6 +139,7 @@ function buscarConteudo() {
 }
 </script>
 
+<?php include 'footer.php';?>
 </body>
 </html>
 

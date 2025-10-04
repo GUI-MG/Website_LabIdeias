@@ -1,7 +1,7 @@
 <?php
 // Configurações de conexão com o banco
 $host = 'localhost';
-$db   = 'bd_ideias_projetos';
+$db   = 'bd_lab_ideias';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -20,9 +20,9 @@ try {
     $anoAtual = date('Y');
 
     // Consulta com filtro pelo ano atual
-    $sql = "SELECT titulo, resumo, periodo_desenvolvimento 
+    $sql = "SELECT titulo, resumo, periodo_situacao 
             FROM projetos 
-            WHERE periodo_desenvolvimento = :ano";
+            WHERE periodo_situacao = :ano";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
@@ -40,7 +40,7 @@ try {
             echo '    <div class="card-body">';
             echo '      <h5 class="card-title">' . htmlspecialchars($projeto['titulo']) . '</h5>';
             echo '      <p class="card-text"><strong>Resumo:</strong> ' . nl2br(htmlspecialchars($projeto['resumo'])) . '</p>';
-            echo '      <p class="card-text"><strong>Ano:</strong> ' . htmlspecialchars($projeto['periodo_desenvolvimento']) . '</p>';
+            echo '      <p class="card-text"><strong>Ano:</strong> ' . htmlspecialchars($projeto['periodo_situacao']) . '</p>';
             echo '    </div>';
             echo '  </div>';
             echo '</div>';

@@ -3,7 +3,7 @@ session_start(); // Inicia a sessão
 
 // Dados de conexão
 $host = 'localhost';
-$db   = 'bd_ideias_projetos';
+$db   = 'bd_lab_ideias';
 $user = 'root';
 $pass = '';
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($stmt->num_rows === 1) {
                 $_SESSION['usuario'] = $usuario;
-                header("Location: manage.php");
+                header("Location: dashboard.php");
                 exit;
             } else {
                 $mensagem = '<div class="alert alert-danger text-center" role="alert">Usuário ou senha inválidos!</div>';
