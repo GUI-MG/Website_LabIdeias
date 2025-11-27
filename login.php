@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: dashboard.php");
                 exit;
             } else {
-                $mensagem = '<div class="alert alert-danger text-center" role="alert">Usuário ou senha inválidos!</div>';
+                $mensagem = '<div class="alert alert-danger text-center" role="alert">Usuário e/ou senha incorretos! Tente novamente.</div>';
             }
             $stmt->close();
         }
