@@ -46,6 +46,8 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Projetos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <style>
@@ -61,31 +63,28 @@ $result = $conn->query($sql);
 <body>
  
  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="160">
-      </a>
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="160">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="dashboard.php"><i class="bi bi-arrow-return-right"></i> Voltar</a>
-          </li>
-        </ul>
-      </div>
+        <a class="navbar-brand" href="index.php">
+            <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="180">
+        </a>
+        <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
+            <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="180">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a></li>
+                <li class="nav-item"><a class="nav-link" href="cadastro.php"><i class="bi bi-pen"></i> Voltar</a></li>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
+
 
 <div class="container mt-5">
   <h2>Selecionar Projeto</h2>
 
-  <!-- Formulário de seleção -->
+  <!-- Formulário de seleção --> 
   <form>
     <div class="mb-3">
       <label for="projetoSelect" class="form-label">Projeto:</label>
