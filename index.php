@@ -114,10 +114,15 @@
   <div class="container">
     <h2><i class="bi bi-people-fill"></i> Equipe</h2>
     <div class="ps-3"> <!-- Adiciona recuo -->
-      <h5><strong>Membros Atuais:</strong></h5>
-      <p><strong>Coordenador:</strong> Sandro Oliveira Dorneles</p>
-      <p><strong>Bolsistas atuais:</strong> Ivan Lucas Schaurich e Guilherme Martins Glaeser</p>
-      <p><strong>Demais professores:</strong> Moser Fagundes</p>
+      <ul>
+        <li>Sandro Oliveira Dorneles</li>
+        <li>Moser Fagundes</li>
+        <li>Michel</li>
+        <li>Alan</li>
+        <li>Lucas</li>
+        <li>Eloisa</li>
+        <li>Thaís</li>
+      </ul>
     </div>
   </div>
 </section>
