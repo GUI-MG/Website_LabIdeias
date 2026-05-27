@@ -128,12 +128,7 @@ $conn->close();
 </div>
 
 <!-- Rodapé -->
-<footer class="bg-dark text-white py-3 mt-5 text-center">
-    <div class="container">
-        <small>&copy; 2025 Laboratório de Ideias</small>
-    </div>
-</footer>
-
+<?php include 'footer.php' ?>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
 

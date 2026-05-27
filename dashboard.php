@@ -133,9 +133,7 @@ $conn->close();
     </div>
 </div>
 
-<footer class="bg-dark text-white text-center py-3 mt-5">
-    <small>&copy; 2025 Laboratório de Ideias</small>
-</footer>
+<?php include 'footer.php'?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

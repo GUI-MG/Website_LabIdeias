@@ -116,11 +116,9 @@ footer {
     color: #bbb;
     padding: 1rem 0;
     text-align: center;
+    margin-top: auto;
 }
 
-footer small {
-    font-size: 0.875rem;
-}
 
 /* ================================
    FORMULÁRIO DE IDEIAS
