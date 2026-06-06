@@ -101,9 +101,6 @@ nav.navbar-dark {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ================================
-   SEÇÕES
-=================================== */
 section {
     margin: 40px 0;
     padding: 60px 0;
@@ -252,6 +249,13 @@ section h5 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.card-custom {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -270,9 +274,6 @@ section h5 {
     color: #666;
 }
 
-/* ================================
-   RODAPÉ
-=================================== */
 footer {
     background-color: #222;
     color: #bbb;
