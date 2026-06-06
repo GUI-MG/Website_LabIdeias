@@ -46,6 +46,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Projetos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 </head>
 
 <style>
@@ -75,7 +76,7 @@ $result = $conn->query($sql);
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php"><i class="bi bi-arrow-return-right"></i> Voltar</a>
+            <button id="projetosButton" onclick="window.location.href='index.php'"><i class="bi bi-arrow-return-right"></i> Voltar</button>
           </li>
         </ul>
       </div>

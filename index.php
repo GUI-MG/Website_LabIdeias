@@ -23,41 +23,43 @@
       <a class="navbar-brand" href="#">
         <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="320">
       </a>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
         <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="320">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div id="nav-actions" class="container">
+        <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#objetivos">
+            <button id="indexNavButton" onclick="window.location.href='index.php#objetivos'">
               <i class="bi bi-card-list"></i> Objetivos
-            </a>
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#projetos">
+            <button id="indexNavButton" onclick="window.location.href='index.php#projetos'">
               <i class="bi bi-collection"></i> Projetos
-            </a>
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#equipe">
+            <button id="indexNavButton" onclick="window.location.href='index.php#equipe'">
               <i class="bi bi-people-fill"></i> Equipe
-            </a>
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#participacoes">
+            <button id="indexNavButton" onclick="window.location.href='index.php#participacoes'">
               <i class="bi bi-easel3"></i> Participações
-            </a>
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="cadastro.php">
+            <button id="indexNavButton" onclick="window.location.href='cadastro.php'">
               <i class="bi bi-pen"></i> Cadastrar Ideia
-            </a>
+            </button>
           </li>
         </ul>
+      </div>
       </div>
     </div>
   </nav>
@@ -105,7 +107,7 @@
     <div class="container">
       <h2><i class="bi bi-collection"></i> Projetos</h2>
       <?php require 'exibirprojetos.php'; ?>
-      <p><strong><a href="projetos.php">Ver mais</a></strong></p>
+      <button id="projetosButton" onclick="window.location.href='projetos.php'"><strong>Ver mais</strong></button>
     </div>
   </section>
 
