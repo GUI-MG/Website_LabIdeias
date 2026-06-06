@@ -76,7 +76,9 @@ $result = $conn->query($sql);
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <button id="projetosButton" onclick="window.location.href='index.php'"><i class="bi bi-arrow-return-right"></i> Voltar</button>
+            <button id="projetosButton" onclick="window.location.href='index.php'">
+              <i class="bi bi-arrow-return-right"></i> Voltar
+            </button>
           </li>
         </ul>
       </div>

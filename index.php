@@ -11,8 +11,6 @@
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 
-  <!-- Custom CSS -->
-  <link href="assets/css/reset.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -107,7 +105,7 @@
     <div class="container">
       <h2><i class="bi bi-collection"></i> Projetos</h2>
       <?php require 'exibirprojetos.php'; ?>
-      <button id="projetosButton" onclick="window.location.href='projetos.php'"><strong>Ver mais</strong></button>
+      <button id="projetoButton" onclick="window.location.href='projetos.php'"><strong>Ver mais</strong></button>
     </div>
   </section>
 

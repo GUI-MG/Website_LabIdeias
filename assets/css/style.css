@@ -61,7 +61,7 @@ nav .container {
     box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-#projetosButton {
+#projetoButton {
     border: none;
     border-radius: 12px;
     background-color: transparent;
@@ -71,7 +71,7 @@ nav .container {
     transition: all 0.3s ease;
 }
 
-#projetosButton:hover {
+#projetoButton:hover {
     border-radius: 20px;
     width: 90px;
     box-shadow: 2px 1px 2px 3px rgba(0, 0, 0, 0.2);
