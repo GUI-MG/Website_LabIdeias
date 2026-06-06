@@ -21,6 +21,10 @@ SET time_zone = "+00:00";
 -- Database: `bd_lab_ideias`
 --
 
+CREATE DATABASE `bd_lab_ideias` 
+DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_lab_ideias`;
+
 -- --------------------------------------------------------
 
 --

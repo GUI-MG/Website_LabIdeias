@@ -18,13 +18,14 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="320">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
+        <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
       </a>
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="320">
+      <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="#">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -33,119 +34,170 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#objetivos">
+            <a class="nav-link" href="index.php#objetivos">
               <i class="bi bi-card-list"></i> Objetivos
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#projetos">
+            <a class="nav-link" href="index.php#projetos">
               <i class="bi bi-collection"></i> Projetos
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#equipe">
+            <a class="nav-link" href="index.php#equipe">
               <i class="bi bi-people-fill"></i> Equipe
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="index.php#participacoes">
+            <a class="nav-link" href="index.php#participacoes">
               <i class="bi bi-easel3"></i> Participações
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="cadastro.php">
-              <i class="bi bi-pen"></i> Cadastrar Ideia
+          <li class="nav-item nav-cadastro">
+            <a class="nav-link" href="cadastro.php">
+              <i class="bi bi-pen" style="color: yellow"></i> Cadastrar Ideia
             </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  
+  <!-- Breadcrumb -->
+  <nav class="navbar navbar-light bg-light-gray p-2">
+    <div class="container-fluid">
+      <a class="navbar-brand active" href="#">
+        <i class="bi bi-house-fill text-success me-2"></i>Início
+      </a>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal que preenche o espaço disponível -->
+  <main class="site-main flex-fill">
 
   <!-- Home Section -->
-  <section id="home" class="py-2 text-center bg-light">
+  <section id="home" class="py-5 bg-white">
     <div class="container">
-      <h1>Laboratório de Ideias</h1>
-      <p>Aprendendo e criando inovações.</p>
-    </div>
-  </section>
-
-  <!-- Presentation Section -->
-  <section id="presentation" class="py-5">
-    <div class="container">
-      <h2><i class="bi bi-house-fill"></i> Início</h2>
-      <h4><strong>Seja muito bem-vindo!</strong></h4>
-      <p>
-        O Laboratório de Ideias é um Projeto de Ensino que visa fomentar a criatividade e curiosidade de seus participantes, 
-        além de desenvolver soluções para problemas e demandas. Seu foco não é apenas resolver demandas, mas também promover 
-        o aprendizado dos participantes.  
-        Abaixo, você encontrará mais informações sobre o projeto, seus objetivos, participações, soluções desenvolvidas, 
-        integrantes e até um espaço para cadastrar sua ideia.  
-        O Laboratório de Ideias faz parte do grupo 
-        <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento Interdisciplinar de Sistemas e Inovações</a></strong>.  
-        Tem uma ideia ou demanda para compartilhar? Clique <strong><a href="cadastro.php">aqui</a></strong> e cadastre!
-      </p>
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold text-dark mb-2">Laboratório de Ideias</h1>
+          <p class="text-success fs-5 fw-bold mb-3">Aprendendo e criando inovações.</p>
+          <hr class="divider-yellow" style="width: 80px; height: 4px;">
+          <p class="text-muted mb-4">
+            Seja muito bem-vindo! O Laboratório de Ideias é um Projeto de Ensino que visa fomentar 
+            a criatividade e curiosidade de seus participantes, além de desenvolver soluções para problemas e demandas. 
+            Seu foco não é apenas resolver demandas, mas também promover o aprendizado dos participantes. 
+            Abaixo, você encontrará mais informações sobre o projeto, suas atividades, integrantes e um espaço para cadastrar sua ideia.
+          </p>
+          <a href="cadastro.php" class="btn btn-success btn-lg">
+            <i class="bi bi-plus-circle"></i> Cadastrar ideia
+          </a>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="assets/img/home-img.jpg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Objetivos -->
-  <section id="objetivos" class="py-5 bg-light">
+  <section id="objetivos" class="py-5 bg-white-green">
     <div class="container">
-      <h2><i class="bi bi-card-list"></i> Objetivos</h2>
-      <p>
-        O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que atendam às demandas da sociedade local, 
-        incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e espírito empreendedor.  
-        Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por aprender mais sobre a área.
-      </p>
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <h2 class="mb-4"><i class="bi bi-bullseye text-success"></i> Objetivos</h2>
+          <p class="text-muted">
+            O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que atendam às demandas da sociedade local, 
+            incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e espírito empreendedor.  
+            Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por aprender mais sobre a área.
+          </p>
+        </div>
+        <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
+          <img src="assets/img/objetivos-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Projetos -->
-  <section id="projetos" class="py-5">
+  <section id="objetivos" class="py-5 bg-white-green">
     <div class="container">
-      <h2><i class="bi bi-collection"></i> Projetos</h2>
-      <?php require 'exibirprojetos.php'; ?>
-      <p><strong><a href="projetos.php">Ver mais</a></strong></p>
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-1">
+          <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos</h2>
+          <?php require 'exibirprojetos.php'; ?>
+          <div class="text-center mt-4">
+            <a href="projetos.php" class="btn btn-outline-success">Ver mais projetos</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
+          <img src="assets/img/projetos-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Equipe -->
-<section id="equipe" class="py-5 bg-light">
-  <div class="container">
-    <h2><i class="bi bi-people-fill"></i> Equipe</h2>
-    <div class="ps-3"> <!-- Adiciona recuo -->
-      <ul>
-        <li>Sandro Oliveira Dorneles</li>
-        <li>Moser Fagundes</li>
-        <li>Michel</li>
-        <li>Alan</li>
-        <li>Lucas</li>
-        <li>Eloisa</li>
-        <li>Thaís</li>
-      </ul>
+  <section id="objetivos" class="py-5 bg-white-green">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <h2 class="mb-4"><i class="bi bi-people-fill text-success"></i> Equipe</h2>
+          <div class="team-list">
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Sandro Oliveira Dorneles - coordenador</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Moser Silva Fagundes - coordenador</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Michel Nathan Schauren - bolsista</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Eloisa Rambo Winter - bolsista</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Thais Hillebrand Link - bolsista</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Alan Eduardo Federhen - voluntário</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Lucas Marques Gritti - voluntário</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Guilherme Martins Glaeser - voluntário</li>
+              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Ivan Lucas Schaurich - voluntário</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
+          <img src="assets/img/equipe-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
   <!-- Participações -->
-  <section id="participacoes" class="py-5">
+   <section id="objetivos" class="py-5 bg-white-green">
     <div class="container">
-      <h2><i class="bi bi-easel3"></i> Participações</h2>
-      <h6><strong>2025:</strong></h6>
-      <ul>
-        <li>Mostra da Semana da Informática</li>
-        <li>3ª Oficina na Semana da Informática</li>
-        <li>Mostra técnica do Campus Feliz</li>
-      </ul>
-      <h6><strong>2024:</strong></h6>
-      <ul>
-        <li>Mostra técnica do Campus Feliz</li>
-        <li>Salão IFRS</li>
-        <li>2ª Oficina na Semana da Informática</li>
-      </ul>
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-1">
+          <h2 class="mb-4"><i class="bi bi-easel3 text-success"></i> Participações</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="fw-bold text-success mb-3">2025:</h6>
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra da Semana da Informática</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> 3ª Oficina na Semana da Informática</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra técnica do Campus Feliz</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="fw-bold text-success mb-3">2024:</h6>
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra técnica do Campus Feliz</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Salão IFRS</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> 2ª Oficina na Semana da Informática</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
+          <img src="assets/img/participacoes-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+        </div>
+      </div>
     </div>
   </section>
+
+  </main>
 
   <!-- Rodapé -->
   <?php include 'footer.php' ?>

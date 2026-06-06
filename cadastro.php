@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <?php include 'navbar.php'; ?>
-<div class="container py-5">
+<main class="container py-5">
     <h2 class="mb-4">Cadastrar Ideia:</h2>
     <h6><b>Observação:</b></h6>
     <p>No cadastro de ideias, informe o título da ideia, uma breve descrição e um e-mail para contato, caso ela seja contemplada para desenvolvimento.</p>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
-</div>
+</main>
 <?php include 'footer.php'; ?>
 </body>
 </html>

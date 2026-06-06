@@ -46,6 +46,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Projetos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <style>
@@ -82,7 +83,7 @@ $result = $conn->query($sql);
     </div>
   </nav>
 
-<div class="container mt-5">
+<main class="container mt-5">
   <h2>Selecionar Projeto</h2>
 
   <!-- Formulário de seleção -->
@@ -111,7 +112,7 @@ $result = $conn->query($sql);
     <h4 id="tipoTitulo"></h4>
     <p id="conteudoTexto"></p>
   </div>
-</div>
+</main>
 
 <script>
 function buscarConteudo() {
