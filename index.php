@@ -1,3 +1,77 @@
+<?php 
+
+include('pdo.php');
+$pdo = getPDOConnection();
+
+function exibirProjetos(PDO $pdo): void {
+  // Ano atual
+  $anoAtual = date('Y');
+
+  // Consulta com filtro pelo ano atual
+  $sql = "SELECT titulo, resumo, inicio, termino 
+          FROM projetos 
+          WHERE termino IS NULL OR YEAR(termino) = :ano";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
+  $stmt->execute();
+  $projetos = $stmt->fetchAll();
+
+  if ($projetos) {
+    echo '<div class="row">';
+
+    foreach ($projetos as $projeto) {
+      $periodo = htmlspecialchars($projeto['inicio']) . ' - ' . ($projeto['termino'] ? htmlspecialchars($projeto['termino']) : 'em andamento');
+      echo '<div class="col-md-6 mb-4">';
+      echo '  <div class="card">';
+      echo '    <div class="card-body">';
+      echo '      <h5 class="card-title">' . htmlspecialchars($projeto['titulo']) . '</h5>';
+      echo '      <h6 class="card-title">' . $periodo . '</h6>';
+      echo '      <p class="card-text">' . nl2br(htmlspecialchars($projeto['resumo'])) . '</p>';
+      echo '    </div>';
+      echo '  </div>';
+      echo '</div>';
+    }
+
+    echo '</div>';
+  } else {
+    echo '<p class="text-muted">Nenhum projeto encontrado para o ano de ' . $anoAtual . '.</p>';
+  }
+}
+
+function exibirEquipe(PDO $pdo): void {
+  // Ano atual
+  $anoAtual = date('Y');
+
+  // Puxar a EQUIPE do banco
+  // puxar apenas os membros que participaram de um projeto do ano atual
+  $sql = "SELECT p.nome_completo,
+                 GROUP_CONCAT(DISTINCT pp.tipo ORDER BY pp.tipo SEPARATOR '/') AS tipos
+          FROM partic_proj_relacao pp
+          JOIN projetos pr ON pp.id_proj = pr.id
+          JOIN participantes p ON pp.id_partc = p.id
+          WHERE pr.termino IS NULL OR YEAR(pr.termino) = :ano
+          GROUP BY p.id, p.nome_completo";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
+  $stmt->execute();
+  $equipe = $stmt->fetchAll();
+
+  if ($equipe) {  
+    echo '<div class="team-list">';
+    echo '<ul class="list-unstyled">';
+    foreach ($equipe as $membro) {
+      echo '<li class="mb-2"><i class="bi bi-person-check text-success"></i>' . htmlspecialchars($membro['nome_completo']) . ' - ' . htmlspecialchars($membro['tipos']) . '</li>';
+    }
+    echo '</ul>';
+    echo '</div>';
+  } else {
+    echo '<p class="text-muted">Nenhum membro encontrado para este ano.</p>';
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -120,45 +194,35 @@
   </section>
 
   <!-- Projetos -->
-  <section id="objetivos" class="py-5 bg-white-green">
+  <section id="projetos" class="py-5 bg-white-green">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-1">
-          <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos</h2>
-          <?php require 'exibirprojetos.php'; ?>
+          <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos de <?= date('Y') ?></h2>
           <div class="text-center mt-4">
             <a href="projetos.php" class="btn btn-outline-success">Ver mais projetos</a>
           </div>
         </div>
         <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
-          <img src="assets/img/projetos-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+          <img src="assets/img/projetos-img.jpg" alt="Projetos Illustration" class="img-fluid">
         </div>
+      </div>
+      <div>
+        <?php exibirProjetos($pdo) ?>
       </div>
     </div>
   </section>
 
   <!-- Equipe -->
-  <section id="objetivos" class="py-5 bg-white-green">
+  <section id="equipe" class="py-5 bg-white-green">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-2">
-          <h2 class="mb-4"><i class="bi bi-people-fill text-success"></i> Equipe</h2>
-          <div class="team-list">
-            <ul class="list-unstyled">
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Sandro Oliveira Dorneles - coordenador</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Moser Silva Fagundes - coordenador</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Michel Nathan Schauren - bolsista</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Eloisa Rambo Winter - bolsista</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Thais Hillebrand Link - bolsista</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Alan Eduardo Federhen - voluntário</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Lucas Marques Gritti - voluntário</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Guilherme Martins Glaeser - voluntário</li>
-              <li class="mb-2"><i class="bi bi-person-check text-success"></i> Ivan Lucas Schaurich - voluntário</li>
-            </ul>
-          </div>
+          <h2 class="mb-4"><i class="bi bi-people-fill text-success"></i> Equipe de <?= date('Y') ?></h2>
+          <?php exibirEquipe($pdo)?>
         </div>
         <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
-          <img src="assets/img/equipe-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+          <img src="assets/img/equipe-img.jpg" alt="Equipe Illustration" class="img-fluid">
         </div>
       </div>
     </div>
@@ -166,7 +230,7 @@
 
 
   <!-- Participações -->
-   <section id="objetivos" class="py-5 bg-white-green">
+   <section id="participacoes" class="py-5 bg-white-green">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-1">
@@ -191,7 +255,7 @@
           </div>
         </div>
         <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
-          <img src="assets/img/participacoes-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+          <img src="assets/img/participacoes-img.jpg" alt="Participações Illustration" class="img-fluid">
         </div>
       </div>
     </div>

@@ -222,7 +222,9 @@ section h2 i {
 }
 
 section h5 {
-    color: #1B8449;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--bs-success);
 }
 
 /* ================================

@@ -1,4 +1,6 @@
 <?php
+// ARQUIVO  NÂO ESTÁ MAIS EM USO, POIS A EXIBIÇÃO DE PROJETOS FOI INTEGRADA À PÁGINA INICIAL (index.php)
+
 // Configurações de conexão com o banco
 $host = 'localhost';
 $db   = 'bd_lab_ideias';
@@ -20,9 +22,9 @@ try {
     $anoAtual = date('Y');
 
     // Consulta com filtro pelo ano atual
-    $sql = "SELECT titulo, resumo, periodo_situacao 
+    $sql = "SELECT titulo, resumo, termino 
             FROM projetos 
-            WHERE periodo_situacao = :ano";
+            WHERE termino IS NULL OR YEAR(termino) = :ano";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
@@ -30,8 +32,6 @@ try {
     $projetos = $stmt->fetchAll();
 
     if ($projetos) {
-        echo '<div class="container">';
-        echo '<h3>Projetos de ' . $anoAtual . '</h3>';
         echo '<div class="row">';
 
         foreach ($projetos as $projeto) {
@@ -40,13 +40,12 @@ try {
             echo '    <div class="card-body">';
             echo '      <h5 class="card-title">' . htmlspecialchars($projeto['titulo']) . '</h5>';
             echo '      <p class="card-text"><strong>Resumo:</strong> ' . nl2br(htmlspecialchars($projeto['resumo'])) . '</p>';
-            echo '      <p class="card-text"><strong>Ano:</strong> ' . htmlspecialchars($projeto['periodo_situacao']) . '</p>';
+            echo '      <p class="card-text"><strong>Ano:</strong> ' . htmlspecialchars($projeto['termino']) . '</p>';
             echo '    </div>';
             echo '  </div>';
             echo '</div>';
         }
 
-        echo '</div>';
         echo '</div>';
     } else {
         echo '<p class="text-muted">Nenhum projeto encontrado para o ano de ' . $anoAtual . '.</p>';
