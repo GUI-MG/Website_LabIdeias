@@ -64,10 +64,10 @@ $result = $conn->query($sql);
  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.php">
         <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="160">
       </a>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
         <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="160">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

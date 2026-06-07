@@ -70,6 +70,44 @@ function exibirEquipe(PDO $pdo): void {
     echo '<p class="text-muted">Nenhum membro encontrado para este ano.</p>';
   }
 }
+
+function exibirParticipacoes(PDO  $pdo): void {
+  // Puxar as PARTICIPAÇÕES do banco
+  $sql = "SELECT nome, ano FROM participacoes";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $participacoes = $stmt->fetchAll();
+
+  if ($participacoes) {
+    echo '<div class="row">';
+
+    // Para cada ano diferente, criar uma coluna
+    $anos = [];
+    foreach ($participacoes as $participacao) {
+      $anos[] = $participacao['ano'];
+    }
+    $anos = array_unique($anos);
+
+    foreach ($anos as $ano) {
+      echo '<div class="col-md-6">';
+      echo '  <h5 class="card-title">' . htmlspecialchars($ano) . ': </h5>';
+      echo '  <ul class="list-unstyled">';
+      foreach ($participacoes as $participacao) {
+        if ($participacao['ano'] == $ano) {
+          echo '<li class="mb-2"><i class="bi bi-check-circle text-success"></i> ' . htmlspecialchars($participacao['nome']) . '</li>';
+        }
+      }
+      echo '  </ul>';
+      echo '</div>';
+    }
+
+    echo '</div>';
+  } else {
+    echo '<p class="text-muted">Nenhuma participação encontrada.</p>';
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -85,6 +123,9 @@ function exibirEquipe(PDO $pdo): void {
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
   <!-- Custom CSS -->
   <link href="assets/css/reset.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
@@ -94,11 +135,11 @@ function exibirEquipe(PDO $pdo): void {
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
         <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
         <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
       </a>
-      <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="#">
+      <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
         <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -235,24 +276,7 @@ function exibirEquipe(PDO $pdo): void {
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-1">
           <h2 class="mb-4"><i class="bi bi-easel3 text-success"></i> Participações</h2>
-          <div class="row">
-            <div class="col-md-6">
-              <h6 class="fw-bold text-success mb-3">2025:</h6>
-              <ul class="list-unstyled">
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra da Semana da Informática</li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> 3ª Oficina na Semana da Informática</li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra técnica do Campus Feliz</li>
-              </ul>
-            </div>
-            <div class="col-md-6">
-              <h6 class="fw-bold text-success mb-3">2024:</h6>
-              <ul class="list-unstyled">
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mostra técnica do Campus Feliz</li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Salão IFRS</li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> 2ª Oficina na Semana da Informática</li>
-              </ul>
-            </div>
-          </div>
+          <?php exibirParticipacoes($pdo)?>
         </div>
         <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
           <img src="assets/img/participacoes-img.jpg" alt="Participações Illustration" class="img-fluid">

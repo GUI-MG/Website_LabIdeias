@@ -93,8 +93,16 @@ nav.navbar-dark {
     font-weight: 600;
 }
 
-.navbar-dark .nav-link:hover {
-    color: #fff !important;
+.navbar-dark .navbar-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navbar-dark .nav-item:hover {
+    border-radius: 10px;
+    background-color: #0000005c;
+    color: var(--white-green) !important;
+    transform: scale(1.01);
 }
 
 .navbar-dark .navbar-toggler {
