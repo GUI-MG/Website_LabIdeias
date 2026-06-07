@@ -105,28 +105,27 @@ function exibirEquipe(PDO $pdo): void {
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div id="nav-actions" class="container">
-        <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="index.php#objetivos">
               <i class="bi bi-card-list"></i> Objetivos
-            </button>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.php#projetos">
               <i class="bi bi-collection"></i> Projetos
-            </button>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.php#equipe">
               <i class="bi bi-people-fill"></i> Equipe
-            </button>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.php#participacoes">
               <i class="bi bi-easel3"></i> Participações
-            </button>
+            </a>
           </li>
           <li class="nav-item nav-cadastro">
             <a class="nav-link" href="cadastro.php">
@@ -134,7 +133,6 @@ function exibirEquipe(PDO $pdo): void {
             </a>
           </li>
         </ul>
-      </div>
       </div>
     </div>
   </nav>
