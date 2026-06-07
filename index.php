@@ -62,93 +62,95 @@
     </div>
   </nav>
 
-  <!-- Home Section -->
-  <section id="home" class="py-2 text-center bg-light">
+  <main id="principal">
+    <!-- Home Section -->
+    <section id="home" class="py-2 text-center bg-light">
+      <div class="container">
+        <h1>Laboratório de Ideias</h1>
+        <p>Aprendendo e criando inovações.</p>
+      </div>
+    </section>
+
+    <!-- Presentation Section -->
+    <section id="presentation" class="py-5">
+      <div class="container">
+        <h2><i class="bi bi-house-fill"></i> Início</h2>
+        <h4><strong>Seja muito bem-vindo!</strong></h4>
+        <p>
+          O Laboratório de Ideias é um Projeto de Ensino que visa fomentar a criatividade e curiosidade de seus participantes, 
+          além de desenvolver soluções para problemas e demandas. Seu foco não é apenas resolver demandas, mas também promover 
+          o aprendizado dos participantes.  
+          Abaixo, você encontrará mais informações sobre o projeto, seus objetivos, participações, soluções desenvolvidas, 
+          integrantes e até um espaço para cadastrar sua ideia.  
+          O Laboratório de Ideias faz parte do grupo 
+          <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento Interdisciplinar de Sistemas e Inovações</a></strong>.  
+          Tem uma ideia ou demanda para compartilhar? Clique <strong><a href="cadastro.php">aqui</a></strong> e cadastre!
+        </p>
+      </div>
+    </section>
+
+    <!-- Objetivos -->
+    <section id="objetivos" class="py-5 bg-light">
+      <div class="container">
+        <h2><i class="bi bi-card-list"></i> Objetivos</h2>
+        <p>
+          O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que atendam às demandas da sociedade local, 
+          incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e espírito empreendedor.  
+          Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por aprender mais sobre a área.
+        </p>
+      </div>
+    </section>
+
+    <!-- Projetos -->
+    <section id="projetos" class="py-5">
+      <div class="container">
+        <h2><i class="bi bi-collection"></i> Projetos</h2>
+        <?php require 'exibirprojetos.php'; ?>
+        <button id="projetoButton" onclick="window.location.href='projetos.php'"><strong>Ver mais</strong></button>
+      </div>
+    </section>
+
+    <!-- Equipe -->
+  <section id="equipe" class="py-5 bg-light">
     <div class="container">
-      <h1>Laboratório de Ideias</h1>
-      <p>Aprendendo e criando inovações.</p>
+      <h2><i class="bi bi-people-fill"></i> Equipe</h2>
+      <div class="ps-3"> <!-- Adiciona recuo -->
+        <ul>
+          <li>Sandro Oliveira Dorneles</li>
+          <li>Moser Fagundes</li>
+          <li>Michel</li>
+          <li>Alan</li>
+          <li>Lucas</li>
+          <li>Eloisa</li>
+          <li>Thaís</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- Presentation Section -->
-  <section id="presentation" class="py-5">
-    <div class="container">
-      <h2><i class="bi bi-house-fill"></i> Início</h2>
-      <h4><strong>Seja muito bem-vindo!</strong></h4>
-      <p>
-        O Laboratório de Ideias é um Projeto de Ensino que visa fomentar a criatividade e curiosidade de seus participantes, 
-        além de desenvolver soluções para problemas e demandas. Seu foco não é apenas resolver demandas, mas também promover 
-        o aprendizado dos participantes.  
-        Abaixo, você encontrará mais informações sobre o projeto, seus objetivos, participações, soluções desenvolvidas, 
-        integrantes e até um espaço para cadastrar sua ideia.  
-        O Laboratório de Ideias faz parte do grupo 
-        <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento Interdisciplinar de Sistemas e Inovações</a></strong>.  
-        Tem uma ideia ou demanda para compartilhar? Clique <strong><a href="cadastro.php">aqui</a></strong> e cadastre!
-      </p>
-    </div>
-  </section>
 
-  <!-- Objetivos -->
-  <section id="objetivos" class="py-5 bg-light">
-    <div class="container">
-      <h2><i class="bi bi-card-list"></i> Objetivos</h2>
-      <p>
-        O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que atendam às demandas da sociedade local, 
-        incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e espírito empreendedor.  
-        Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por aprender mais sobre a área.
-      </p>
-    </div>
-  </section>
+    <!-- Participações -->
+    <section id="participacoes" class="py-5">
+      <div class="container">
+        <h2><i class="bi bi-easel3"></i> Participações</h2>
+        <h6><strong>2025:</strong></h6>
+        <ul>
+          <li>Mostra da Semana da Informática</li>
+          <li>3ª Oficina na Semana da Informática</li>
+          <li>Mostra técnica do Campus Feliz</li>
+        </ul>
+        <h6><strong>2024:</strong></h6>
+        <ul>
+          <li>Mostra técnica do Campus Feliz</li>
+          <li>Salão IFRS</li>
+          <li>2ª Oficina na Semana da Informática</li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- Projetos -->
-  <section id="projetos" class="py-5">
-    <div class="container">
-      <h2><i class="bi bi-collection"></i> Projetos</h2>
-      <?php require 'exibirprojetos.php'; ?>
-      <button id="projetoButton" onclick="window.location.href='projetos.php'"><strong>Ver mais</strong></button>
-    </div>
-  </section>
-
-  <!-- Equipe -->
-<section id="equipe" class="py-5 bg-light">
-  <div class="container">
-    <h2><i class="bi bi-people-fill"></i> Equipe</h2>
-    <div class="ps-3"> <!-- Adiciona recuo -->
-      <ul>
-        <li>Sandro Oliveira Dorneles</li>
-        <li>Moser Fagundes</li>
-        <li>Michel</li>
-        <li>Alan</li>
-        <li>Lucas</li>
-        <li>Eloisa</li>
-        <li>Thaís</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Participações -->
-  <section id="participacoes" class="py-5">
-    <div class="container">
-      <h2><i class="bi bi-easel3"></i> Participações</h2>
-      <h6><strong>2025:</strong></h6>
-      <ul>
-        <li>Mostra da Semana da Informática</li>
-        <li>3ª Oficina na Semana da Informática</li>
-        <li>Mostra técnica do Campus Feliz</li>
-      </ul>
-      <h6><strong>2024:</strong></h6>
-      <ul>
-        <li>Mostra técnica do Campus Feliz</li>
-        <li>Salão IFRS</li>
-        <li>2ª Oficina na Semana da Informática</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Rodapé -->
-  <?php include 'footer.php' ?>
+    <!-- Rodapé -->
+    <?php include 'footer.php' ?>
+  </main>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>

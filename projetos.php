@@ -6,7 +6,6 @@ $pass = '';
 $db = 'bd_lab_ideias';
 $conn = new mysqli($host, $user, $pass, $db);
 
-
 // Se for uma chamada AJAX, retorna conteúdo em JSON e encerra aqui
 if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
     $id = intval($_GET['id']);
@@ -47,36 +46,27 @@ $result = $conn->query($sql);
   <title>Projetos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
-<style>
-  nav {
-    background: linear-gradient(to right, rgb(80, 230, 70), rgb(80, 160, 60));
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  main {
-        flex: 1; /* ocupa o espaço antes do footer */
-  }
-</style>
 
 <body>
  
  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.php">
         <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="160">
       </a>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
         <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="160">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="nav-actions">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <button id="projetosButton" onclick="window.location.href='index.php'">
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
               <i class="bi bi-arrow-return-right"></i> Voltar
             </button>
           </li>
@@ -85,36 +75,40 @@ $result = $conn->query($sql);
     </div>
   </nav>
 
-<div class="container mt-5">
-  <h2>Selecionar Projeto</h2>
+  <main id="principal">
+    <div class="container mt-5">
+      <h2>Selecionar Projeto</h2>
 
-  <!-- Formulário de seleção -->
-  <form>
-    <div class="mb-3">
-      <label for="projetoSelect" class="form-label">Projeto:</label>
-      <select id="projetoSelect" class="form-select" onchange="buscarConteudo()">
-        <option value="">Selecione um projeto</option>
-        <?php while($row = $result->fetch_assoc()): ?>
-          <option value="<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['titulo']); ?></option>
-        <?php endwhile; ?>
-      </select>
+      <!-- Formulário de seleção -->
+      <form>
+        <div class="mb-3">
+          <label for="projetoSelect" class="form-label">Projeto:</label>
+          <select id="projetoSelect" class="form-select" onchange="buscarConteudo()">
+            <option value="">Selecione um projeto</option>
+            <?php while($row = $result->fetch_assoc()): ?>
+              <option value="<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['titulo']); ?></option>
+            <?php endwhile; ?>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="tipoSelect" class="form-label">Visualizar:</label>
+          <select id="tipoSelect" class="form-select" onchange="buscarConteudo()">
+            <option value="resumo">Resumo</option>
+            <option value="descricao">Descrição</option>
+          </select>
+        </div>
+      </form>
+
+      <!-- Exibição do conteúdo -->
+      <div id="conteudoProjeto" class="mt-4">
+        <div id="conteudoProjetos" class="container">
+          <h4 id="tipoTitulo"></h4>
+          <p id="conteudoTexto"></p>
+        </div>
+      </div>
     </div>
-
-    <div class="mb-3">
-      <label for="tipoSelect" class="form-label">Visualizar:</label>
-      <select id="tipoSelect" class="form-select" onchange="buscarConteudo()">
-        <option value="resumo">Resumo</option>
-        <option value="descricao">Descrição</option>
-      </select>
-    </div>
-  </form>
-
-  <!-- Exibição do conteúdo -->
-  <div id="conteudoProjeto" class="mt-4" style="display: none;">
-    <h4 id="tipoTitulo"></h4>
-    <p id="conteudoTexto"></p>
-  </div>
-</div>
+  </main>
 
 <script>
 function buscarConteudo() {
@@ -127,11 +121,21 @@ function buscarConteudo() {
     return;
   }
 
+  tipo2 = tipo.split('');
+  console.log(tipo2)
+  tipo2[0] = tipo2[0].toUpperCase()
+  tipo2[6] = 'ç'; 
+  tipo2[7] = 'ã';
+  tipoPronto = '';
+  tipo2.forEach(letra => {
+    tipoPronto+=letra;
+  });
+
   fetch(`<?php echo $_SERVER['PHP_SELF']; ?>?ajax=1&id=${projetoId}&tipo=${tipo}`)
     .then(response => response.json())
     .then(data => {
       document.getElementById('conteudoProjeto').style.display = 'block';
-      document.getElementById('tipoTitulo').innerText = tipo.charAt(0).toUpperCase() + tipo.slice(1) + ' do Projeto:';
+      document.getElementById('tipoTitulo').innerText = (tipo == 'resumo' ? tipo.charAt(0).toUpperCase() + tipo.slice(1) + ' do Projeto:' : tipoPronto + ' do Projeto:');
       document.getElementById('conteudoTexto').innerText = data.conteudo || 'Conteúdo não disponível.';
     })
     .catch(error => {

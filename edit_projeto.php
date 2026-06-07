@@ -105,15 +105,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt="Logo Lab Ideias" height="80"></a>
-    <a class="navbar-brand" href="#"><img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="80"></a>
+    <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt="Logo Lab Ideias" height="80"></a>
+    <a class="navbar-brand" href="https://ifrs.edu.br/feliz/"><img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="80"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" id="nav-actions">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a></li>
-        <li class="nav-item"><a class="nav-link" href="dashboard_projetos.php"><i class="bi bi-arrow-return-right"></i> Voltar</a></li>
+        <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
+                <i class="bi bi-house-fill"></i> Início
+            </button>
+        </li>
+        <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='dashboard_projetos.php'">
+                <i class="bi bi-arrow-return-right"></i> Voltar
+            </button>
+        </li>
       </ul>
     </div>
   </div>

@@ -1,9 +1,15 @@
 body {
     margin: 0;
-    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#principal {
+    flex: 1;
 }
 
 nav {
@@ -65,17 +71,36 @@ nav .container {
     border: none;
     border-radius: 12px;
     background-color: transparent;
-    width: 80px;
-    margin: 15px;
+    width: 100px;
     box-shadow: 1px 1px 1px 3px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
 
 #projetoButton:hover {
     border-radius: 20px;
-    width: 90px;
+    width: 120px;
     box-shadow: 2px 1px 2px 3px rgba(0, 0, 0, 0.2);
     transform: scale(1.12);
+}
+
+#semProjetos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: left;
+}
+
+#conteudoProjetos {
+    margin-top: 58px;
+    text-align: justify;
+}
+
+#login {
+    display: flex;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
 }
 
 section {
@@ -131,7 +156,7 @@ section h2::after {
     transform: translateY(-5px);
 }
 
-footer {
+#footer {
     background-color: #222;
     color: #bbb;
     padding: 1rem 0;

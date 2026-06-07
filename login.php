@@ -75,62 +75,72 @@ $conn->close();
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="nav-actions">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a></li>
-                <li class="nav-item"><a class="nav-link" href="cadastro.php"><i class="bi bi-pen"></i> Voltar</a></li>
+                <li class="nav-item">
+                    <button id="indexNavButton" onclick="window.location.href='index.php'">
+                        <i class="bi bi-house-fill"></i> Início
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button id="indexNavButton" onclick="window.location.href='cadastro.php'">
+                        <i class="bi bi-pen"></i> Voltar
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 
 <!-- Login Form -->
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-sm rounded-4">
-                <div class="card-body p-4">
-                    <h3 class="text-center mb-4"><i class="bi bi-box-arrow-in-right"></i> Login</h3>
-
-                    <!-- Mensagem de retorno -->
-                    <?php if (!empty($mensagem)) echo $mensagem; ?>
-
-                    <form action="login.php" method="post">
-                        <div class="mb-3">
-                            <label for="usuario" class="form-label">Usuário</label>
-                            <input type="text" class="form-control" name="usuario" id="usuario" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="senha" class="form-label">Senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="senha" id="senha" required>
-                                <button type="button" class="btn btn-outline-secondary" id="toggleSenha">
-                                    <i class="bi bi-eye" id="iconSenha"></i>
-                                </button>
+<div id="login" class="container">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4"><i class="bi bi-box-arrow-in-right"></i> Login</h3>
+                        
+                        <!-- Mensagem de retorno -->
+                        <?php if (!empty($mensagem)) echo $mensagem; ?>
+                        
+                        <form action="login.php" method="post">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuário</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario" required>
                             </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="bi bi-box-arrow-in-right"></i> Entrar
+                            
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="senha" id="senha" required>
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleSenha">
+                                        <i class="bi bi-eye" id="iconSenha"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-box-arrow-in-right"></i> Entrar
                         </button>
                     </form>
-
+                    
                     <p class="text-center mt-3 mb-0">
                         <?php if(!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'administrador'): ?>
                             Apenas o administrador pode criar novas contas.
-                        <?php endif; ?>
-                    </p>
+                            <?php endif; ?>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Rodapé -->
-<?php include 'footer.php' ?>
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Rodapé -->
+    <?php include 'footer.php' ?>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Script para mostrar/ocultar senha -->
 <script>

@@ -36,11 +36,6 @@ $result = $conn->query($sql);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <style>
-    html, body { height: 100%; }
-    body { display: flex; flex-direction: column; }
-    main { flex: 1; }
-  </style>
 </head>
 <body>
   <!-- NAVBAR -->
@@ -55,13 +50,17 @@ $result = $conn->query($sql);
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="nav-actions">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a>
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
+              <i class="bi bi-house-fill"></i> Início
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php"><i class="bi bi-arrow-return-right"></i> Voltar</a>
+            <button id="indexNavButton" onclick="window.location.href='dashboard.php'">
+              <i class="bi bi-arrow-return-right"></i> Voltar
+            </button>
           </li>
         </ul>
       </div>

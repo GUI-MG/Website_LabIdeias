@@ -49,7 +49,9 @@ try {
         echo '</div>';
         echo '</div>';
     } else {
+        echo '<div id="semProjetos" class="container">';
         echo '<p class="text-muted">Nenhum projeto encontrado para o ano de ' . $anoAtual . '.</p>';
+        echo '</div>';
     }
 
 } catch (PDOException $e) {
