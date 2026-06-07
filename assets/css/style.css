@@ -35,6 +35,12 @@ body {
     margin: 0 30vh;
 }
 
+.login-main {
+    flex: 1 0 auto;
+    margin: auto;
+    width: 600px;
+}
+
 .bg-dark-green {
     background-color: #1B8449 !important;
 }
@@ -124,42 +130,11 @@ section .container {
     margin: 0 auto;
 }
 
-/* Breadcrumb */
-.navbar.navbar-light.bg-light-gray {
-    background-color: #F5F5F5 !important;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0.75rem 0;
-}
-
-.navbar-brand i {
-    color: #1B8449;
-    margin-right: 0.5rem;
-}
-
-.navbar-light .navbar-brand.active,
-.navbar-light .nav-link.active {
-    color: #1B8449 !important;
-    position: relative;
-    display: inline-block;
-}
-
-.navbar-light .navbar-brand.active::after,
-.navbar-light .nav-link.active::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -0.4rem;
-    height: 4px;
-    background: #1B8449;
-    border-radius: 4px;
-}
-
-section .img-fluid {
-    margin: 20px 0;
-    max-width: 80%;
+.img-fluid {
+    max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-top: 20px;
 }
 
 /* ================================
@@ -324,6 +299,11 @@ footer small {
     border-color: #136a3c;
 }
 
+.form-label {
+    font-weight: 600;
+    color: #1B8449;
+}
+
 .btn-success {
     background-color: #1B8449;
     border-color: #1B8449;
@@ -407,6 +387,11 @@ footer small {
 
     .site-main {
         margin: 0 4vh;
+    }
+
+    .login-main {
+        width: 90%;
+        padding: 0 20px;
     }
 }
 

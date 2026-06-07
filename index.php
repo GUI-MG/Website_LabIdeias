@@ -177,15 +177,6 @@ function exibirParticipacoes(PDO  $pdo): void {
       </div>
     </div>
   </nav>
-  
-  <!-- Breadcrumb -->
-  <nav class="navbar navbar-light bg-light-gray p-2">
-    <div class="container-fluid">
-      <a class="navbar-brand active" href="#">
-        <i class="bi bi-house-fill text-success me-2"></i>Início
-      </a>
-    </div>
-  </nav>
 
   <!-- Conteúdo principal que preenche o espaço disponível -->
   <main class="site-main flex-fill">
@@ -248,6 +239,7 @@ function exibirParticipacoes(PDO  $pdo): void {
           <img src="assets/img/projetos-img.jpg" alt="Projetos Illustration" class="img-fluid">
         </div>
       </div>
+      <br>
       <div>
         <?php exibirProjetos($pdo) ?>
       </div>

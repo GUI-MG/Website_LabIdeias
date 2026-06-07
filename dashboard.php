@@ -37,9 +37,17 @@ $conn->close();
     <title>Dashboard - Laboratório de Ideias</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
 
     <style>
        nav {
@@ -55,40 +63,42 @@ $conn->close();
         }
         .card-container:hover { transform: scale(1.05); }
         .card-body { text-align: center; }
-        .dashboard-header { margin-bottom: 40px; }
+        .dashboard-header { margin-bottom: 40px;}
         .btn-dashboard { margin-top: 15px; }
     </style>
 </head>
 <body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
  
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/logo.png" alt="Logo Lab Ideias"  height="180">
-      </a>
-      <a class="navbar-brand" href="#">
-        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="180">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+      <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
+      <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
+    </a>
+    <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
+      <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
           <a class="nav-link" href="index.php#">
             <i class="bi bi-house-fill"></i> Início
           </a>
         </li>
-          <li class="nav-item">
-            <a class="nav-link" href="logout.php">
-              <i class="bi bi-person-fill-down"></i> Sair
-            </a>
-          </li>
-        </ul>
-      </div>
+        <li class="nav-item">
+          <a class="nav-link" href="logout.php">
+            <i class="bi bi-person-fill-down"></i> Sair
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
 </nav>
 
 <div class="container py-5">
