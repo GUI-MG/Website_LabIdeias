@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/06/2026 às 20:39
+-- Tempo de geração: 07/06/2026 às 21:12
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bd_lab_ideias`
 --
-
 CREATE DATABASE IF NOT EXISTS `bd_lab_ideias` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bd_lab_ideias`;
 
@@ -107,6 +106,30 @@ INSERT INTO `old_projetos` (`id`, `titulo`, `resumo`, `descricao`, `situacao`, `
 (6, 'App de ajuda nas Enchentes', 'Devido às enchentes no RS, surgiu a proposta de um aplicativo para conectar voluntários e afetados, começando pelo Vale do Caí. O app contará com geolocalização, pedidos de ajuda, eventos e doações. O objetivo é facilitar a organização da assistência em desastres climáticos.', 'Devido às enchentes no Rio Grande do Sul em maio, identificou-se a dificuldade na mobilização de ajuda por falta de comunicação entre voluntários e pessoas afetadas. Como solução, propõe-se a criação de um aplicativo que facilite essa conexão, especialmente na região do Vale do Caí, com potencial de expansão para todo o estado. O objetivo é desenvolver um modelo teórico do app, que contará com interface simples, sistema de geolocalização similar ao Google Maps e funcionalidades como criação de eventos, pedidos de ajuda e gerenciamento de doações (alimentos, roupas, mão de obra, etc.). O app visa tornar mais eficiente a organização da assistência em desastres climáticos atuais e futuros.', 'planejamento', '2024', NULL),
 (7, 'MCHAT Digital', 'O projeto propõe uma página web para automatizar o diagnóstico do TEA em crianças, com base em respostas dos pais a um questionário. O sistema usará uma fórmula matemática para gerar diagnósticos automáticos. O objetivo é agilizar o processo e garantir diagnósticos mais precoces e precisos.', 'O projeto propõe a criação de uma página web para tornar mais eficiente o diagnóstico do Transtorno do Espectro Autista (TEA) em crianças, automatizando o processo atualmente feito manualmente por médicos com o apoio de instituições como a APAE. O sistema online permitirá que os pais respondam remotamente a um questionário cujas respostas serão analisadas por uma fórmula matemática, gerando um diagnóstico automático. O objetivo é agilizar o processo, otimizando o tempo dos profissionais de saúde e promovendo um diagnóstico precoce e preciso, essencial para garantir melhor qualidade de vida aos pacientes.', 'em andamento', '2025', NULL),
 (8, 'Site Laboratório de Ideias', 'O projeto Laboratório de Ideias do IFRS Campus Feliz transforma demandas em projetos práticos. Para organizar as iniciativas, será criado um site com informações dos projetos, autores e ilustrações. O site também permitirá o envio de novas ideias por externos.', 'O projeto Laboratório de Ideias, do IFRS Campus Feliz, visa reunir e debater demandas para transformá-las em projetos práticos. Diante do número crescente de iniciativas desenvolvidas, surgiu a necessidade de criar um site que reúna informações sobre todos os projetos já realizados, seus autores, ilustrações e dados relevantes. O site também permitirá que pessoas externas ao projeto submetam novas ideias ou demandas, contribuindo para a continuidade e renovação das ações do projeto.', 'em andamento', '2025', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `participacoes`
+--
+
+CREATE TABLE `participacoes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(150) NOT NULL,
+  `ano` year(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `participacoes`
+--
+
+INSERT INTO `participacoes` (`id`, `nome`, `ano`) VALUES
+(1, 'Mostra da Semana da Informática', '2024'),
+(2, '3ª Oficina na Semana da Informática', '2024'),
+(3, 'Mostra técnica do Campus Feliz', '2024'),
+(4, 'Mostra técnica do Campus Feliz', '2025'),
+(5, 'Salão IFRS', '2025'),
+(6, '2ª Oficina na Semana da Informática', '2025');
 
 -- --------------------------------------------------------
 
@@ -248,6 +271,12 @@ ALTER TABLE `old_projetos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `participacoes`
+--
+ALTER TABLE `participacoes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `participantes`
 --
 ALTER TABLE `participantes`
@@ -293,6 +322,12 @@ ALTER TABLE `old_participantes`
 --
 ALTER TABLE `old_projetos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `participacoes`
+--
+ALTER TABLE `participacoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `participantes`
