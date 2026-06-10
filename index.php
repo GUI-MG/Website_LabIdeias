@@ -89,6 +89,7 @@ function exibirParticipacoes(PDO  $pdo): void {
     }
     $anos = array_unique($anos);
 
+    //
     foreach ($anos as $ano) {
       echo '<div class="col-md-6">';
       echo '  <h5 class="card-title">' . htmlspecialchars($ano) . ': </h5>';
