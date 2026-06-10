@@ -130,6 +130,13 @@ section .container {
     margin: 0 auto;
 }
 
+section a {
+    text-decoration: none;
+    color: var(--bs-success);
+    font-weight: 600;
+
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;

@@ -9,7 +9,7 @@ function exibirProjetos(PDO $pdo): void {
 
   // Consulta com filtro pelo ano atual
   $sql = "SELECT titulo, resumo, inicio, termino 
-          FROM projetos 
+          FROM projeto
           WHERE termino IS NULL OR YEAR(termino) = :ano";
 
   $stmt = $pdo->prepare($sql);
@@ -48,7 +48,7 @@ function exibirEquipe(PDO $pdo): void {
   $sql = "SELECT p.nome_completo,
                  GROUP_CONCAT(DISTINCT pp.tipo ORDER BY pp.tipo SEPARATOR '/') AS tipos
           FROM partic_proj_relacao pp
-          JOIN projetos pr ON pp.id_proj = pr.id
+          JOIN projeto pr ON pp.id_proj = pr.id
           JOIN participantes p ON pp.id_partc = p.id
           WHERE pr.termino IS NULL OR YEAR(pr.termino) = :ano
           GROUP BY p.id, p.nome_completo";
@@ -89,7 +89,6 @@ function exibirParticipacoes(PDO  $pdo): void {
     }
     $anos = array_unique($anos);
 
-    //
     foreach ($anos as $ano) {
       echo '<div class="col-md-6">';
       echo '  <h5 class="card-title">' . htmlspecialchars($ano) . ': </h5>';
@@ -195,6 +194,9 @@ function exibirParticipacoes(PDO  $pdo): void {
             a criatividade e curiosidade de seus participantes, além de desenvolver soluções para problemas e demandas. 
             Seu foco não é apenas resolver demandas, mas também promover o aprendizado dos participantes. 
             Abaixo, você encontrará mais informações sobre o projeto, suas atividades, integrantes e um espaço para cadastrar sua ideia.
+            O Laboratório de Ideias faz parte do grupo 
+            <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento Interdisciplinar de Sistemas e Inovações</a></strong>.  
+            Tem uma ideia ou demanda para compartilhar? Cadastre uma nova ideia!
           </p>
           <a href="cadastro.php" class="btn btn-success btn-lg">
             <i class="bi bi-plus-circle"></i> Cadastrar ideia
