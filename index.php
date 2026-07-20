@@ -44,14 +44,20 @@ function exibirEquipe(PDO $pdo): void {
   $anoAtual = date('Y');
 
   // Puxar a EQUIPE do banco
-  // puxar apenas os membros que participaram de um projeto do ano atual
-  $sql = "SELECT p.nome_completo,
-                 GROUP_CONCAT(DISTINCT pp.tipo ORDER BY pp.tipo SEPARATOR '/') AS tipos
-          FROM partic_proj_relacao pp
-          JOIN projeto pr ON pp.id_proj = pr.id
-          JOIN participantes p ON pp.id_partc = p.id
-          WHERE pr.termino IS NULL OR YEAR(pr.termino) = :ano
-          GROUP BY p.id, p.nome_completo";
+  // puxar apenas os membros que estão participando de um projeto atualmente
+  $sql = "SELECT p.nome_completo, GROUP_CONCAT(DISTINCT p.tipo ORDER BY p.tipo SEPARATOR '/') AS tipos
+          FROM realiza r
+          JOIN projeto pr ON r.fk_projeto_id = pr.id
+          JOIN participante p ON r.fk_participante_id = p.id
+          WHERE pr.inicio = :ano";
+
+  // $sql = "SELECT p.nome_completo,
+  //                GROUP_CONCAT(DISTINCT pp.tipo ORDER BY pp.tipo SEPARATOR '/') AS tipos
+  //         FROM partic_proj_relacao pp
+  //         JOIN projeto pr ON pp.id_proj = pr.id
+  //         JOIN participantes p ON pp.id_partc = p.id
+  //         WHERE pr.termino IS NULL OR YEAR(pr.termino) = :ano
+  //         GROUP BY p.id, p.nome_completo";
 
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
@@ -73,7 +79,7 @@ function exibirEquipe(PDO $pdo): void {
 
 function exibirParticipacoes(PDO  $pdo): void {
   // Puxar as PARTICIPAÇÕES do banco
-  $sql = "SELECT nome, ano FROM participacoes";
+  $sql = "SELECT nome, ano FROM participacao";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -112,180 +118,191 @@ function exibirParticipacoes(PDO  $pdo): void {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laboratório de Ideias</title>
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratório de Ideias</title>
 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 
-  <!-- Custom CSS -->
-  <link href="assets/css/reset.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/reset.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
-        <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
-        <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
-      </a>
-      <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
-        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php#objetivos">
-              <i class="bi bi-card-list"></i> Objetivos
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+                <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
+                <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php#projetos">
-              <i class="bi bi-collection"></i> Projetos
+            <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
+                <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php#equipe">
-              <i class="bi bi-people-fill"></i> Equipe
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php#participacoes">
-              <i class="bi bi-easel3"></i> Participações
-            </a>
-          </li>
-          <li class="nav-item nav-cadastro">
-            <a class="nav-link" href="cadastro.php">
-              <i class="bi bi-pen" style="color: yellow"></i> Cadastrar Ideia
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-  <!-- Conteúdo principal que preenche o espaço disponível -->
-  <main class="site-main flex-fill">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php#objetivos">
+                            <i class="bi bi-card-list"></i> Objetivos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php#projetos">
+                            <i class="bi bi-collection"></i> Projetos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php#equipe">
+                            <i class="bi bi-people-fill"></i> Equipe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php#participacoes">
+                            <i class="bi bi-easel3"></i> Participações
+                        </a>
+                    </li>
+                    <li class="nav-item nav-cadastro">
+                        <a class="nav-link" href="cadastro.php">
+                            <i class="bi bi-pen" style="color: yellow"></i> Cadastrar Ideia
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Home Section -->
-  <section id="home" class="py-5 bg-white">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h1 class="display-4 fw-bold text-dark mb-2">Laboratório de Ideias</h1>
-          <p class="text-success fs-5 fw-bold mb-3">Aprendendo e criando inovações.</p>
-          <hr class="divider-yellow" style="width: 80px; height: 4px;">
-          <p class="text-muted mb-4">
-            Seja muito bem-vindo! O Laboratório de Ideias é um Projeto de Ensino que visa fomentar 
-            a criatividade e curiosidade de seus participantes, além de desenvolver soluções para problemas e demandas. 
-            Seu foco não é apenas resolver demandas, mas também promover o aprendizado dos participantes. 
-            Abaixo, você encontrará mais informações sobre o projeto, suas atividades, integrantes e um espaço para cadastrar sua ideia.
-            O Laboratório de Ideias faz parte do grupo 
-            <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento Interdisciplinar de Sistemas e Inovações</a></strong>.  
-            Tem uma ideia ou demanda para compartilhar? Cadastre uma nova ideia!
-          </p>
-          <a href="cadastro.php" class="btn btn-success btn-lg">
-            <i class="bi bi-plus-circle"></i> Cadastrar ideia
-          </a>
-        </div>
-        <div class="col-lg-6 text-center">
-          <img src="assets/img/home-img.jpg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Conteúdo principal que preenche o espaço disponível -->
+    <main class="site-main flex-fill">
 
-  <!-- Objetivos -->
-  <section id="objetivos" class="py-5 bg-white-green">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <h2 class="mb-4"><i class="bi bi-bullseye text-success"></i> Objetivos</h2>
-          <p class="text-muted">
-            O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que atendam às demandas da sociedade local, 
-            incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e espírito empreendedor.  
-            Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por aprender mais sobre a área.
-          </p>
-        </div>
-        <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
-          <img src="assets/img/objetivos-img.jpg" alt="Objetivos Illustration" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Home Section -->
+        <section id="home" class="py-5 bg-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold text-dark mb-2">Laboratório de Ideias</h1>
+                        <p class="text-success fs-5 fw-bold mb-3">Aprendendo e criando inovações.</p>
+                        <hr class="divider-yellow" style="width: 80px; height: 4px;">
+                        <p class="text-muted mb-4">
+                            Seja muito bem-vindo! O Laboratório de Ideias é um Projeto de Ensino que visa fomentar
+                            a criatividade e curiosidade de seus participantes, além de desenvolver soluções para
+                            problemas e demandas.
+                            Seu foco não é apenas resolver demandas, mas também promover o aprendizado dos
+                            participantes.
+                            Abaixo, você encontrará mais informações sobre o projeto, suas atividades, integrantes e um
+                            espaço para cadastrar sua ideia.
+                            O Laboratório de Ideias faz parte do grupo
+                            <strong><a href="http://dgp.cnpq.br/dgp/espelhogrupo/796428">Desenvolvimento
+                                    Interdisciplinar de Sistemas e Inovações</a></strong>.
+                            Tem uma ideia ou demanda para compartilhar? Cadastre uma nova ideia!
+                        </p>
+                        <a href="cadastro.php" class="btn btn-success btn-lg">
+                            <i class="bi bi-plus-circle"></i> Cadastrar ideia
+                        </a>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <img src="assets/img/home-img.jpg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Projetos -->
-  <section id="projetos" class="py-5 bg-white-green">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-1">
-          <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos de <?= date('Y') ?></h2>
-          <div class="text-center mt-4">
-            <a href="projetos.php" class="btn btn-outline-success">Ver mais projetos</a>
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
-          <img src="assets/img/projetos-img.jpg" alt="Projetos Illustration" class="img-fluid">
-        </div>
-      </div>
-      <br>
-      <div>
-        <?php exibirProjetos($pdo) ?>
-      </div>
-    </div>
-  </section>
+        <!-- Objetivos -->
+        <section id="objetivos" class="py-5 bg-white-green">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <h2 class="mb-4"><i class="bi bi-bullseye text-success"></i> Objetivos</h2>
+                        <p class="text-muted">
+                            O objetivo principal do projeto é fomentar e elaborar propostas de inovação tecnológica que
+                            atendam às demandas da sociedade local,
+                            incentivando os alunos do Curso Técnico em Informática a explorar sua criatividade e
+                            espírito empreendedor.
+                            Além disso, busca melhorar habilidades sociais, de apresentação e despertar o interesse por
+                            aprender mais sobre a área.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
+                        <img src="assets/img/objetivos-img.jpg" alt="Objetivos Illustration" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Equipe -->
-  <section id="equipe" class="py-5 bg-white-green">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <h2 class="mb-4"><i class="bi bi-people-fill text-success"></i> Equipe de <?= date('Y') ?></h2>
-          <?php exibirEquipe($pdo)?>
-        </div>
-        <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
-          <img src="assets/img/equipe-img.jpg" alt="Equipe Illustration" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Projetos -->
+        <section id="projetos" class="py-5 bg-white-green">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-1">
+                        <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos de <?= date('Y') ?></h2>
+                        <div class="text-center mt-4">
+                            <a href="projetos.php" class="btn btn-outline-success">Ver mais projetos</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
+                        <img src="assets/img/projetos-img.jpg" alt="Projetos Illustration" class="img-fluid">
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <?php exibirProjetos($pdo) ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipe -->
+        <section id="equipe" class="py-5 bg-white-green">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <h2 class="mb-4"><i class="bi bi-people-fill text-success"></i> Equipe de <?= date('Y') ?></h2>
+                        <?php exibirEquipe($pdo)?>
+                    </div>
+                    <div class="col-lg-6 order-lg-1 text-center mb-4 mb-lg-0">
+                        <img src="assets/img/equipe-img.jpg" alt="Equipe Illustration" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
-  <!-- Participações -->
-   <section id="participacoes" class="py-5 bg-white-green">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-1">
-          <h2 class="mb-4"><i class="bi bi-easel3 text-success"></i> Participações</h2>
-          <?php exibirParticipacoes($pdo)?>
-        </div>
-        <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
-          <img src="assets/img/participacoes-img.jpg" alt="Participações Illustration" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Participações -->
+        <section id="participacoes" class="py-5 bg-white-green">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-1">
+                        <h2 class="mb-4"><i class="bi bi-easel3 text-success"></i> Participações</h2>
+                        <?php exibirParticipacoes($pdo)?>
+                    </div>
+                    <div class="col-lg-6 order-lg-2 text-center mb-4 mb-lg-0">
+                        <img src="assets/img/participacoes-img.jpg" alt="Participações Illustration" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  </main>
+    </main>
 
-  <!-- Rodapé -->
-  <?php include 'footer.php' ?>
+    <!-- Rodapé -->
+    <?php include 'footer.php' ?>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
