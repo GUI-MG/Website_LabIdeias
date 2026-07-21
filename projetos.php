@@ -92,8 +92,10 @@ function listarProjetos(PDO $pdo): void {
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item nav-cadastro">
-                        <a class="nav-link" href="dashboard.php"><i class="bi bi-arrow-return-left"></i> Voltar</a>
+                    <li class="nav-item">
+                        <button class="nav-link" onclick="window.history.back()">
+                            <i class="bi bi-arrow-return-left"></i> Voltar
+                        </button>
                     </li>
                 </ul>
             </div>

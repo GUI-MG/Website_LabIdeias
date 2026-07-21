@@ -20,7 +20,7 @@ $usuario = $conn->real_escape_string($usuario);
 $senhaHash = hash('sha256', $senha); // Criptografar senha
 
 // Verificar no banco
-$sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senhaHash'";
+$sql = "SELECT * FROM usuario WHERE usuario = '$usuario' AND senha = '$senhaHash'";
 $result = $conn->query($sql);
 
 if ($result->num_rows === 1) {
@@ -38,10 +38,12 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
+
 <body>
     <h2>Login</h2>
     <form action="login.php" method="post">
@@ -54,4 +56,5 @@ $conn->close();
         <input type="submit" value="Entrar">
     </form>
 </body>
+
 </html>

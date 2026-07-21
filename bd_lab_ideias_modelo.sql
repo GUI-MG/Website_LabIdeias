@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/06/2026 às 20:28
+-- Tempo de geração: 21/07/2026 às 20:49
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
-
-CREATE DATABASE IF NOT EXISTS `bd_lab_ideias` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `bd_lab_ideias`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bd_lab_ideias`
 --
+CREATE DATABASE IF NOT EXISTS `bd_lab_ideias` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_lab_ideias`;
 
 -- --------------------------------------------------------
 
@@ -33,6 +32,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `ideia` (
   `id` int(11) NOT NULL,
   `titulo` varchar(40) DEFAULT NULL,
+  `descricao` varchar(2048) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -82,7 +82,7 @@ CREATE TABLE `projeto` (
   `id` int(11) NOT NULL,
   `titulo` varchar(40) DEFAULT NULL,
   `resumo` varchar(300) DEFAULT NULL,
-  `descricao` varchar(600) DEFAULT NULL,
+  `descricao` varchar(2048) DEFAULT NULL,
   `situacao` varchar(60) DEFAULT NULL,
   `inicio` date DEFAULT NULL,
   `termino` date DEFAULT NULL,
@@ -111,6 +111,13 @@ CREATE TABLE `usuario` (
   `usuario` varchar(40) DEFAULT NULL,
   `senha` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `usuario`, `senha`) VALUES
+(1, 'administrador', '86f65e28a754e1a71b2df9403615a6c436c32c42a75a10d02813961b86f1e428');
 
 --
 -- Índices para tabelas despejadas
@@ -160,6 +167,40 @@ ALTER TABLE `realiza`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `ideia`
+--
+ALTER TABLE `ideia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `participacao`
+--
+ALTER TABLE `participacao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `participante`
+--
+ALTER TABLE `participante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `projeto`
+--
+ALTER TABLE `projeto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas

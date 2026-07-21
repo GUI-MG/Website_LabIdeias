@@ -40,27 +40,16 @@ function exibirProjetos(PDO $pdo): void {
 }
 
 function exibirEquipe(PDO $pdo): void {
-  // Ano atual
-  $anoAtual = date('Y');
-
   // Puxar a EQUIPE do banco
   // puxar apenas os membros que estão participando de um projeto atualmente
   $sql = "SELECT p.nome_completo, GROUP_CONCAT(DISTINCT p.tipo ORDER BY p.tipo SEPARATOR '/') AS tipos
           FROM realiza r
           JOIN projeto pr ON r.fk_projeto_id = pr.id
           JOIN participante p ON r.fk_participante_id = p.id
-          WHERE pr.inicio = :ano";
-
-  // $sql = "SELECT p.nome_completo,
-  //                GROUP_CONCAT(DISTINCT pp.tipo ORDER BY pp.tipo SEPARATOR '/') AS tipos
-  //         FROM partic_proj_relacao pp
-  //         JOIN projeto pr ON pp.id_proj = pr.id
-  //         JOIN participantes p ON pp.id_partc = p.id
-  //         WHERE pr.termino IS NULL OR YEAR(pr.termino) = :ano
-  //         GROUP BY p.id, p.nome_completo";
+          WHERE pr.inicio <= CURDATE() AND (pr.termino IS NULL OR pr.termino >= CURDATE())
+          GROUP BY p.nome_completo";
 
   $stmt = $pdo->prepare($sql);
-  $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
   $stmt->execute();
   $equipe = $stmt->fetchAll();
 
