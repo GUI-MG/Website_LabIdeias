@@ -25,6 +25,7 @@ function exibirProjeto(PDO $pdo, int $id): void {
       echo "<div id='conteudoProjeto' class='card shadow-sm border-0'>";
       echo "    <div class='card-body'>";
       echo "        <h4 id='tipoTitulo' class='card-title'>$titulo</h4>";
+      echo "        <h6 class='card-title'>( $inicio ) $situacao</h6>";
       if (isset($_GET['tipo']) && $_GET['tipo'] === 'descricao') {
           echo "        <p id='conteudoTexto' class='card-text'>$descricao</p>";
       } else {
@@ -93,9 +94,9 @@ function listarProjetos(PDO $pdo): void {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <button class="nav-link" onclick="window.history.back()">
+                        <a class="nav-link" href="index.php">
                             <i class="bi bi-arrow-return-left"></i> Voltar
-                        </button>
+                        </a>
                     </li>
                 </ul>
             </div>

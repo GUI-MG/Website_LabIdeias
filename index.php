@@ -21,7 +21,9 @@ function exibirProjetos(PDO $pdo): void {
     echo '<div class="row">';
 
     foreach ($projetos as $projeto) {
-      $periodo = htmlspecialchars($projeto['inicio']) . ' - ' . ($projeto['termino'] ? htmlspecialchars($projeto['termino']) : 'em andamento');
+        $anoInicio = date('Y', strtotime($projeto['inicio']));
+        $anoTermino = $projeto['termino'] ? date('Y', strtotime($projeto['termino'])) : 'em andamento';
+      $periodo = $anoInicio === $anoTermino ? $anoInicio : "$anoInicio - $anoTermino";
       echo '<div class="col-md-6 mb-4">';
       echo '  <div class="card">';
       echo '    <div class="card-body">';
