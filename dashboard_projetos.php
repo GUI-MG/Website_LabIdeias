@@ -70,30 +70,19 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt="Logo Lab Ideias" height="80"></a>
-      <a class="navbar-brand" href="#"><img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="80"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="nav-actions">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <button id="indexNavButton" onclick="window.location.href='index.php'">
-              <i class="bi bi-house-fill"></i> Início
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+                <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
+                <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
+            </a>
+            <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
+                <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-          </li>
-          <li class="nav-item">
-            <button id="indexNavButton" onclick="window.location.href='dashboard.php'">
-              <i class="bi bi-arrow-return-right"></i> Voltar
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
