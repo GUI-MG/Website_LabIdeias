@@ -66,43 +66,84 @@ $conn->close();
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+            <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="180">
+        </a>
+        <a class="navbar-brand" href="index.php">
+            <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="180">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-actions">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <button id="indexNavButton" onclick="window.location.href='index.php'">
+                        <i class="bi bi-house-fill"></i> Início
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button id="indexNavButton" onclick="window.location.href='cadastro.php'">
+                        <i class="bi bi-pen"></i> Voltar
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
-                <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
-                <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
-            </a>
-            <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
-                <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php"><i class="bi bi-house-fill"></i> Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cadastro.php"><i class="bi bi-pen"></i> Voltar</a>
-                    </li>
-                </ul>
+<!-- Login Form -->
+<div id="login" class="container">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4"><i class="bi bi-box-arrow-in-right"></i> Login</h3>
+                        
+                        <!-- Mensagem de retorno -->
+                        <?php if (!empty($mensagem)) echo $mensagem; ?>
+                        
+                        <form action="login.php" method="post">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuário</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="senha" id="senha" required>
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleSenha">
+                                        <i class="bi bi-eye" id="iconSenha"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-box-arrow-in-right"></i> Entrar
+                        </button>
+                    </form>
+                    
+                    <p class="text-center mt-3 mb-0">
+                        <?php if(!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== 'administrador'): ?>
+                            Apenas o administrador pode criar novas contas.
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-
-    <main class="login-main flex-fill">
-        <section id="login" class="py-5 bg-white-green">
-            <div class="container">
-                <h2><i class="bi bi-box-arrow-in-right text-success"></i> Entrar no sistema</h2>
-                <p class="text-muted mb-4">
-                    Insira seu usuário e senha para acessar o painel de administração.
-                </p>
-                <?php if (!empty($mensagem)) echo $mensagem; ?>
+    </div>
+</div>
+    
+    <!-- Rodapé -->
+    <?php include 'footer.php' ?>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
 
                 <div class="card shadow-sm border-0">
                     <div class="card-body">

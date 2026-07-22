@@ -29,6 +29,43 @@ $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar Usuários - Laboratório de Ideias</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="80">
+      </a>
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="80">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-actions">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
+              <i class="bi bi-house-fill"></i> Início
+            </button>
+          </li>
+          <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='dashboard.php'">
+              <i class="bi bi-arrow-return-right"></i> Voltar
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 <head>
     <meta charset="UTF-8">

@@ -18,6 +18,14 @@
 html,
 body {
   height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 }
 
 body {
@@ -123,6 +131,43 @@ nav.navbar-dark {
 /* ================================
    SEÇÕES
 =================================== */
+
+#projetoButton {
+    border: none;
+    border-radius: 12px;
+    background-color: transparent;
+    width: 100px;
+    box-shadow: 1px 1px 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+#projetoButton:hover {
+    border-radius: 20px;
+    width: 120px;
+    box-shadow: 2px 1px 2px 3px rgba(0, 0, 0, 0.2);
+    transform: scale(1.12);
+}
+
+#semProjetos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: left;
+}
+
+#conteudoProjetos {
+    margin-top: 58px;
+    text-align: justify;
+}
+
+#login {
+    display: flex;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
 section {
   margin: 40px 0;
   padding: 60px 0;
@@ -221,54 +266,6 @@ section h5 {
   color: var(--bs-success);
 }
 
-/* ================================
-   TEAM LIST
-=================================== */
-.team-list ul li {
-  padding: 0.5rem 0;
-  color: #555;
-  font-size: 1rem;
-}
-
-.team-list ul li i {
-  margin-right: 0.75rem;
-  font-size: 1.1rem;
-  color: #1b8449;
-}
-
-/* ================================
-   CARDS (Projetos)
-=================================== */
-.card {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.card-title {
-  color: #1b8449;
-  font-weight: 700;
-}
-
-.card-text {
-  color: #666;
-}
-
-/* ================================
-   RODAPÉ
-=================================== */
 footer {
   background-color: #222;
   color: #bbb;
@@ -276,6 +273,7 @@ footer {
   text-align: center;
   margin-top: auto;
   flex-shrink: 0;
+}
 }
 
 footer small {

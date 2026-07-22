@@ -23,57 +23,43 @@ $result = $conn->query($sql);
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gerenciar Ideias - Laboratório de Ideais</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
-    <style>
-    /* Forçar o footer ao fim da tela */
-    html,
-    body {
-        height: 100%;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    main {
-        flex: 1;
-        /* ocupa o espaço antes do footer */
-    }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar Ideias - Laboratório de Ideais</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
-                <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
-                <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
-            </a>
-            <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
-                <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.php">
+        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="80">
+      </a>
+      <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="80">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-actions">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
+              <i class="bi bi-house-fill"></i> Início
             </button>
+          </li>
+          <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='dashboard.php'">
+              <i class="bi bi-arrow-return-right"></i> Voltar
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -100,6 +86,37 @@ $result = $conn->query($sql);
                 value="<?php echo htmlspecialchars($search); ?>" placeholder="Pesquisar...">
             <button class="btn btn-outline-primary" type="submit">Buscar</button>
         </form>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>E-mail</th>
+          <th>Criado em</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php while ($row = $result->fetch_assoc()): ?>
+        <tr>
+          <td><?php echo $row['id']; ?></td>
+          <td><?php echo htmlspecialchars($row['titulo']); ?></td>
+          <td><?php echo htmlspecialchars($row['descricao']); ?></td>
+          <td><?php echo htmlspecialchars($row['email']); ?></td>
+          <td><?php echo $row['created_at']; ?></td>
+          <td>
+            <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Editar</a>
+            <a href="manage.php?delete=<?php echo $row['id']; ?>" 
+               class="btn btn-sm btn-danger" 
+               onclick="return confirm('Excluir Ideia?')">Excluir</a>
+          </td>
+        </tr>
+        <?php endwhile; ?>
+      </tbody>
+    </table>
+  </main>
 
         <table class="table table-striped">
             <thead>

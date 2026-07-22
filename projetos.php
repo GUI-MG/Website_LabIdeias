@@ -4,6 +4,21 @@ $pdo = getPDOConnection();
 $projetoId = isset($_GET['id']) ? (int)$_GET['id'] : 0; // Obtém o ID do projeto da URL, se fornecido
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'resumo'; // Obtém o tipo de conteúdo a ser exibido (resumo ou descrição)
 
+// Se for uma chamada AJAX, retorna conteúdo em JSON e encerra aqui
+if (isset($_GET['ajax']) && isset($_GET['id']) && isset($_GET['tipo'])) {
+    $id = intval($_GET['id']);
+    $tipo = ($_GET['tipo'] === 'descricao') ? 'descricao' : 'resumo';
+    // carregar conteúdo do projeto
+    $stmtAjax = $pdo->prepare("SELECT resumo, descricao FROM projeto WHERE id = :id");
+    $stmtAjax->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmtAjax->execute();
+    $rowAjax = $stmtAjax->fetch(PDO::FETCH_ASSOC);
+    $conteudo = ($tipo === 'descricao') ? ($rowAjax['descricao'] ?? '') : ($rowAjax['resumo'] ?? '');
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['conteudo' => $conteudo]);
+    exit;
+}
+
 function exibirProjeto(PDO $pdo, int $id): void {
 
   $sql = "SELECT titulo, resumo, descricao, situacao, inicio 
@@ -58,71 +73,73 @@ function listarProjetos(PDO $pdo): void {
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Projetos - Laboratório de Ideias</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <title>Projetos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-green">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
-                <img src="assets/img/logo_simples.png" alt="Logo Lab Ideias" class="navbar-logo">
-                <span class="brand-name">LABORATÓRIO<br>DE IDEIAS</span>
-            </a>
-            <a class="navbar-brand ms-auto me-3 d-none d-lg-flex" href="https://ifrs.edu.br/feliz/">
-                <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" class="ifrs-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+ 
+ <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.php">
+        <img src="assets/img/logo.png" alt="Logo Lab Ideias" height="160">
+      </a>
+      <a class="navbar-brand" href="https://ifrs.edu.br/feliz/">
+        <img src="assets/img/ifrs-logo.svg" alt="Logo IFRS" height="160">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-actions">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <button id="indexNavButton" onclick="window.location.href='index.php'">
+              <i class="bi bi-arrow-return-right"></i> Voltar
             </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">
-                            <i class="bi bi-arrow-return-left"></i> Voltar
-                        </a>
-                    </li>
-                </ul>
-            </div>
+  <main id="principal">
+    <div class="container mt-5">
+      <h2>Selecionar Projeto</h2>
+
+      <!-- Formulário de seleção -->
+      <form>
+        <div class="mb-3">
+          <label for="projetoSelect" class="form-label">Projeto:</label>
+          <select id="projetoSelect" class="form-select" onchange="buscarConteudo()">
+            <option value="">Selecione um projeto</option>
+            <?php while($row = $result->fetch_assoc()): ?>
+              <option value="<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['titulo']); ?></option>
+            <?php endwhile; ?>
+          </select>
         </div>
-    </nav>
 
-    <main class="site-main flex-fill">
-        <section id="projetos" class="py-5 bg-white-green">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <h2><i class="bi bi-collection text-success"></i> Selecionar Projeto</h2>
-                        <p class="text-muted mb-4">
-                            Escolha um projeto abaixo e veja o resumo ou a descrição diretamente na página.
-                        </p>
+        <div class="mb-3">
+          <label for="tipoSelect" class="form-label">Visualizar:</label>
+          <select id="tipoSelect" class="form-select" onchange="buscarConteudo()">
+            <option value="resumo">Resumo</option>
+            <option value="descricao">Descrição</option>
+          </select>
+        </div>
+      </form>
 
-                        <div class="card shadow-sm border-0 mb-4">
-                            <div class="card-body">
-                                <form action="projetos.php" method="get">
-                                    <div class="mb-3">
-                                        <label for="id" class="form-label">Projeto:</label>
-                                        <select name="id" class="form-select" onchange="this.form.submit()" required>
-                                            <option value="" disabled selected>Selecione um projeto</option>
-                                            <?php listarProjetos($pdo); ?>
-                                        </select>
-                                    </div>
+      <!-- Exibição do conteúdo -->
+      <div id="conteudoProjeto" class="mt-4">
+        <div id="conteudoProjetos" class="container">
+          <h4 id="tipoTitulo"></h4>
+          <p id="conteudoTexto"></p>
+        </div>
+      </div>
+    </div>
+  </main>
 
                                     <div class="mb-3">
                                         <label for="tipo" class="form-label">Visualizar:</label>
@@ -144,7 +161,30 @@ function listarProjetos(PDO $pdo): void {
         </section>
     </main>
 
-    <?php include 'footer.php';?>
+  tipo2 = tipo.split('');
+  console.log(tipo2)
+  tipo2[0] = tipo2[0].toUpperCase()
+  tipo2[6] = 'ç'; 
+  tipo2[7] = 'ã';
+  tipoPronto = '';
+  tipo2.forEach(letra => {
+    tipoPronto+=letra;
+  });
+
+  fetch(`<?php echo $_SERVER['PHP_SELF']; ?>?ajax=1&id=${projetoId}&tipo=${tipo}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('conteudoProjeto').style.display = 'block';
+      document.getElementById('tipoTitulo').innerText = (tipo == 'resumo' ? tipo.charAt(0).toUpperCase() + tipo.slice(1) + ' do Projeto:' : tipoPronto + ' do Projeto:');
+      document.getElementById('conteudoTexto').innerText = data.conteudo || 'Conteúdo não disponível.';
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+    });
+}
+</script>
+
+<?php include 'footer.php';?>
 </body>
 
 </html>
