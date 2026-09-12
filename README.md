@@ -10,10 +10,17 @@
       </a>
     </td>
     <td align="center">
-      <a href="ttps://github.com/GUI-MG">
+      <a href="https://github.com/GUI-MG">
         <img src="https://avatars.githubusercontent.com/u/171104484?v=4" width="100px;" alt="Foto de Perfil GUI-MG"/>
         <br />
         <sub><b>GUI-MG</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/GUI-MG](https://github.com/MichelSchauren">
+        <img src="https://avatars.githubusercontent.com/u/183758988?v=4" width="100px;" alt="Foto de Perfil Michel Schauren"/>
+        <br />
+        <sub><b>MichelSchauren</b></sub>
       </a>
     </td>
   </tr>
