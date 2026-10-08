@@ -67,6 +67,7 @@ $result = $conn->query($sql);
         flex: 1;
     }
     </style>
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>

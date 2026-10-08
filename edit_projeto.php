@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmtLink->close();
 
                 $stmtLink = $conn->prepare("INSERT INTO link_projeto (fk_projeto_id, rotulo, url) VALUES (?, ?, ?)");
-                foreach ($linksValidados as $link) {
+                foreach ($linksValidados ?? [] as $link) {
                     $stmtLink->bind_param("iss", $id_projeto, $link['rotulo'], $link['url']);
                     if (!$stmtLink->execute()) {
                         throw new RuntimeException($stmtLink->error);
@@ -205,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body class="bg-light">
@@ -273,15 +274,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="imagem" class="form-label">Imagem ou logo do projeto (opcional)</label>
                 <?php if ($projeto['imagem']): ?>
                 <div class="mb-2">
-                    <img src="<?= htmlspecialchars($projeto['imagem'], ENT_QUOTES, 'UTF-8') ?>" alt="Imagem atual do projeto" style="max-width: 180px; max-height: 120px; object-fit: contain;">
+                    <img src="<?= htmlspecialchars($projeto['imagem'], ENT_QUOTES, 'UTF-8') ?>"
+                        alt="Imagem atual do projeto" style="max-width: 180px; max-height: 120px; object-fit: contain;">
                 </div>
                 <div class="form-check mb-2">
                     <input type="checkbox" id="remover_imagem" name="remover_imagem" class="form-check-input">
                     <label for="remover_imagem" class="form-check-label">Remover imagem atual</label>
                 </div>
                 <?php endif; ?>
-                <input type="file" id="imagem" name="imagem" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp">
-                <div class="form-text">Formatos JPEG, PNG, GIF ou WebP. Tamanho máximo: 5 MB. Envie outra imagem para substituir a atual.</div>
+                <input type="file" id="imagem" name="imagem" class="form-control"
+                    accept="image/jpeg,image/png,image/gif,image/webp">
+                <div class="form-text">Formatos JPEG, PNG, GIF ou WebP. Tamanho máximo: 5 MB. Envie outra imagem para
+                    substituir a atual.</div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Situação</label>
@@ -294,15 +298,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <h5 class="mt-4">Links do projeto</h5>
-            <p class="text-muted">Adicione links para o site, repositório, download ou outros materiais. Os links são opcionais.</p>
+            <p class="text-muted">Adicione links para o site, repositório, download ou outros materiais. Os links são
+                opcionais.</p>
             <div id="links-container">
                 <?php foreach (!empty($links) ? $links : [['rotulo' => '', 'url' => '']] as $i => $link): ?>
                 <div class="row mb-2 link-item">
                     <div class="col">
-                        <input type="text" name="links[<?= $i ?>][rotulo]" class="form-control" placeholder="Nome do link (ex.: Site do projeto)" value="<?= htmlspecialchars($link['rotulo']) ?>" maxlength="100">
+                        <input type="text" name="links[<?= $i ?>][rotulo]" class="form-control"
+                            placeholder="Nome do link (ex.: Site do projeto)"
+                            value="<?= htmlspecialchars($link['rotulo']) ?>" maxlength="100">
                     </div>
                     <div class="col">
-                        <input type="url" name="links[<?= $i ?>][url]" class="form-control" placeholder="https://..." value="<?= htmlspecialchars($link['url']) ?>" maxlength="2048">
+                        <input type="url" name="links[<?= $i ?>][url]" class="form-control" placeholder="https://..."
+                            value="<?= htmlspecialchars($link['url']) ?>" maxlength="2048">
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-danger remove-link">Remover</button>

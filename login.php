@@ -54,6 +54,7 @@ $conn->close();
     <!-- Reset + CSS personalizado -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>

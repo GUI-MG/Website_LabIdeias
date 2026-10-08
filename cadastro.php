@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
     <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>

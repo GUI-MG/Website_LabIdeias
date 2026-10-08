@@ -149,6 +149,8 @@ function exibirParticipacoes(PDO  $pdo): void {
     <!-- Custom CSS -->
     <link href="assets/css/reset.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>

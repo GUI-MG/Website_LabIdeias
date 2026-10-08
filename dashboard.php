@@ -81,6 +81,7 @@ $conn->close();
         margin-top: 15px;
     }
     </style>
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>

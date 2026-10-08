@@ -42,6 +42,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="shortcut icon" href="assets/img/logo_simples.png" type="image/x-icon">
 </head>
 
 <body>
