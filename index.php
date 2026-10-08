@@ -6,14 +6,16 @@ $pdo = getPDOConnection();
 function exibirProjetos(PDO $pdo): void {
   // Ano atual
   $anoAtual = date('Y');
+  $anoAnterior = $anoAtual - 1;
 
   // Consulta com filtro pelo ano atual
-  $sql = "SELECT titulo, resumo, inicio, termino 
+  $sql = "SELECT id, titulo, resumo, inicio, termino, imagem
           FROM projeto
-          WHERE termino IS NULL OR YEAR(termino) = :ano";
+          WHERE termino IS NULL OR YEAR(termino) = :ano OR YEAR(termino) = :anoAnterior";
 
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
+  $stmt->bindParam(':anoAnterior', $anoAnterior, PDO::PARAM_INT);
   $stmt->execute();
   $projetos = $stmt->fetchAll();
 
@@ -27,9 +29,26 @@ function exibirProjetos(PDO $pdo): void {
       echo '<div class="col-md-6 mb-4">';
       echo '  <div class="card">';
       echo '    <div class="card-body">';
-      echo '      <h5 class="card-title">' . htmlspecialchars($projeto['titulo']) . '</h5>';
+      echo '      <div class="d-flex align-items-center gap-1 mb-2">';
+      if (!empty($projeto['imagem'])) {
+        echo '        <img src="' . htmlspecialchars($projeto['imagem'], ENT_QUOTES, 'UTF-8') . '" alt="" class="" style="width: 96px; height: 72px; object-fit: contain;">';
+      }
+      echo '        <h5 class="card-title mb-0">' . htmlspecialchars($projeto['titulo']) . '</h5>';
+      echo '      </div>';
       echo '      <h6 class="card-title">' . $periodo . '</h6>';
       echo '      <p class="card-text">' . nl2br(htmlspecialchars($projeto['resumo'])) . '</p>';
+      $stmtLinks = $pdo->prepare("SELECT rotulo, url FROM link_projeto WHERE fk_projeto_id = :id ORDER BY id");
+      $stmtLinks->execute([':id' => $projeto['id']]);
+      $links = $stmtLinks->fetchAll(PDO::FETCH_ASSOC);
+      if ($links) {
+        echo '      <h6 class="card-title">Links do projeto:</h6><ul class="list-unstyled mb-0">';
+        foreach ($links as $link) {
+          $rotulo = htmlspecialchars($link['rotulo'], ENT_QUOTES, 'UTF-8');
+          $url = htmlspecialchars($link['url'], ENT_QUOTES, 'UTF-8');
+          echo '<li><a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $rotulo . ' <i class="bi bi-box-arrow-up-right"></i></a></li>';
+        }
+        echo '      </ul>';
+      }
       echo '    </div>';
       echo '  </div>';
       echo '</div>';
@@ -48,10 +67,12 @@ function exibirEquipe(PDO $pdo): void {
           FROM realiza r
           JOIN projeto pr ON r.fk_projeto_id = pr.id
           JOIN participante p ON r.fk_participante_id = p.id
-          WHERE pr.inicio <= CURDATE() AND (pr.termino IS NULL OR pr.termino >= CURDATE())
+          WHERE pr.inicio <= CURDATE() AND YEAR(pr.inicio) = :ano
           GROUP BY p.nome_completo";
 
+    $anoAtual = date('Y');
   $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':ano', $anoAtual, PDO::PARAM_INT);
   $stmt->execute();
   $equipe = $stmt->fetchAll();
 
@@ -70,7 +91,7 @@ function exibirEquipe(PDO $pdo): void {
 
 function exibirParticipacoes(PDO  $pdo): void {
   // Puxar as PARTICIPAÇÕES do banco
-  $sql = "SELECT nome, ano FROM participacao";
+  $sql = "SELECT nome, YEAR(ano) AS ano FROM participacao ORDER BY ano DESC, nome";
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -88,7 +109,7 @@ function exibirParticipacoes(PDO  $pdo): void {
 
     foreach ($anos as $ano) {
       echo '<div class="col-md-6">';
-      echo '  <h5 class="card-title">' . htmlspecialchars($ano) . ': </h5>';
+      echo '  <h5 class="card-title">' . htmlspecialchars((string)$ano) . ': </h5>';
       echo '  <ul class="list-unstyled">';
       foreach ($participacoes as $participacao) {
         if ($participacao['ano'] == $ano) {
@@ -240,7 +261,7 @@ function exibirParticipacoes(PDO  $pdo): void {
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 order-lg-1">
-                        <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos de <?= date('Y') ?></h2>
+                        <h2 class="mb-4"><i class="bi bi-collection text-success"></i> Projetos</h2>
                         <div class="text-center mt-4">
                             <a href="projetos.php" class="btn btn-outline-success">Ver mais projetos</a>
                         </div>

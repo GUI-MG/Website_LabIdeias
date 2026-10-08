@@ -86,7 +86,21 @@ CREATE TABLE `projeto` (
   `situacao` varchar(60) DEFAULT NULL,
   `inicio` date DEFAULT NULL,
   `termino` date DEFAULT NULL,
+  `imagem` varchar(255) DEFAULT NULL,
   `fk_ideia_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `link_projeto`
+--
+
+CREATE TABLE `link_projeto` (
+  `id` int(11) NOT NULL,
+  `fk_projeto_id` int(11) NOT NULL,
+  `rotulo` varchar(100) NOT NULL,
+  `url` varchar(2048) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +170,13 @@ ALTER TABLE `projeto`
   ADD KEY `FK_projeto_2` (`fk_ideia_id`);
 
 --
+-- Índices de tabela `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_link_projeto_projeto` (`fk_projeto_id`);
+
+--
 -- Índices de tabela `realiza`
 --
 ALTER TABLE `realiza`
@@ -197,6 +218,12 @@ ALTER TABLE `projeto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -218,6 +245,12 @@ ALTER TABLE `participa`
 --
 ALTER TABLE `projeto`
   ADD CONSTRAINT `FK_projeto_2` FOREIGN KEY (`fk_ideia_id`) REFERENCES `ideia` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  ADD CONSTRAINT `FK_link_projeto_projeto` FOREIGN KEY (`fk_projeto_id`) REFERENCES `projeto` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `realiza`

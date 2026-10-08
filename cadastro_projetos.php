@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+require_once 'imagem_projeto.php';
 session_start();
 if (!isset($_SESSION['usuario'])) header("Location: login.php");
 
@@ -14,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inicio = trim($_POST['inicio']);
     $termino = trim($_POST['termino']) ? trim($_POST['termino']) : null;
     $participantes = $_POST['participantes'] ?? [];
+    $links = $_POST['links'] ?? [];
+    $imagemProjeto = null;
 
     // Validações
     if (!$titulo || !$resumo || !$descricao || !$situacao || !$inicio) {
@@ -21,42 +24,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (count($participantes) < 2) {
         $erro = "Insira pelo menos 2 participantes.";
     } else {
+        $linksValidados = [];
+        foreach ($links as $link) {
+            $rotulo = trim($link['rotulo'] ?? '');
+            $url = trim($link['url'] ?? '');
+
+            if ($rotulo === '' && $url === '') {
+                continue;
+            }
+
+            $esquema = strtolower((string)parse_url($url, PHP_URL_SCHEME));
+            if ($rotulo === '' || filter_var($url, FILTER_VALIDATE_URL) === false || !in_array($esquema, ['http', 'https'], true)) {
+                $erro = "Informe um nome e uma URL válida (http ou https) para cada link.";
+                break;
+            }
+
+            $linksValidados[] = ['rotulo' => $rotulo, 'url' => $url];
+        }
+    }
+
+    if (!$erro) {
+        try {
+            $imagemProjeto = salvarImagemProjeto($_FILES['imagem'] ?? []);
+        } catch (RuntimeException $e) {
+            $erro = $e->getMessage();
+        }
+    }
+
+    if (!$erro) {
         // Inserir projeto
-        $stmt = $conn->prepare("INSERT INTO projeto (titulo, resumo, descricao, situacao, inicio, termino) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $titulo, $resumo, $descricao, $situacao, $inicio, $termino);
+        $stmt = $conn->prepare("INSERT INTO projeto (titulo, resumo, descricao, situacao, inicio, termino, imagem) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $titulo, $resumo, $descricao, $situacao, $inicio, $termino, $imagemProjeto);
         if ($stmt->execute()) {
             $id_projeto = $stmt->insert_id;
             $stmt->close();
 
-            // Pegar participantes existentes
-            $stmt = $conn->prepare("SELECT nome_completo, tipo FROM participante");
-            $stmt->execute();
-            $existentes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            $stmt->close();
-
-            // Inserir participantes
-            foreach ($participantes as $p) {
-                $nome = trim($p['nome']);
-                $tipo = trim($p['tipo']);
-
-                if ($nome && $tipo) {
-                    $id_participante = null;
-                    if (!in_array(['nome_completo' => $nome, 'tipo' => $tipo], $existentes)) {
-                        $conn->query("INSERT INTO participante (id, nome_completo, tipo) VALUES (DEFAULT, '$nome', '$tipo')");
-                        $id_participante = $conn->insert_id;
-                    } else {
-                        $result = $conn->query("SELECT id FROM participante WHERE nome_completo = '$nome' AND tipo = '$tipo'");
-                        $row = $result->fetch_assoc();
-                        $id_participante = $row['id'];
-                    }
-                    // Criar relação entre projeto e participante
-                    $conn->query("INSERT INTO realiza (fk_projeto_id, fk_participante_id) VALUES ($id_projeto, $id_participante)");
+            $stmtLink = $conn->prepare("INSERT INTO link_projeto (fk_projeto_id, rotulo, url) VALUES (?, ?, ?)");
+            foreach ($linksValidados as $link) {
+                $stmtLink->bind_param("iss", $id_projeto, $link['rotulo'], $link['url']);
+                if (!$stmtLink->execute()) {
+                    $erro = "Erro ao salvar links do projeto: " . $stmtLink->error;
+                    break;
                 }
             }
+            $stmtLink->close();
 
-            $sucesso = "Projeto cadastrado com sucesso!";
+            if ($erro) {
+                $conn->query("DELETE FROM projeto WHERE id = " . (int)$id_projeto);
+                if (!removerImagemProjeto($imagemProjeto)) {
+                    $erro .= " A imagem enviada também não pôde ser removida.";
+                }
+            } else {
+                // Pegar participantes existentes
+                $stmt = $conn->prepare("SELECT nome_completo, tipo FROM participante");
+                $stmt->execute();
+                $existentes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+
+                // Inserir participantes
+                foreach ($participantes as $p) {
+                    $nome = trim($p['nome']);
+                    $tipo = trim($p['tipo']);
+
+                    if ($nome && $tipo) {
+                        $id_participante = null;
+                        if (!in_array(['nome_completo' => $nome, 'tipo' => $tipo], $existentes)) {
+                            $conn->query("INSERT INTO participante (id, nome_completo, tipo) VALUES (DEFAULT, '$nome', '$tipo')");
+                            $id_participante = $conn->insert_id;
+                        } else {
+                            $result = $conn->query("SELECT id FROM participante WHERE nome_completo = '$nome' AND tipo = '$tipo'");
+                            $row = $result->fetch_assoc();
+                            $id_participante = $row['id'];
+                        }
+                        // Criar relação entre projeto e participante
+                        $conn->query("INSERT INTO realiza (fk_projeto_id, fk_participante_id) VALUES ($id_projeto, $id_participante)");
+                    }
+                }
+
+                $sucesso = "Projeto cadastrado com sucesso!";
+            }
         } else {
             $erro = "Erro ao cadastrar projeto: " . $conn->error;
+            if (!removerImagemProjeto($imagemProjeto)) {
+                $erro .= " A imagem enviada também não pôde ser removida.";
+            }
         }
     }
 }
@@ -121,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-success"><?= $sucesso ?></div>
         <?php endif; ?>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Título</label>
                 <input type="text" name="titulo" class="form-control" required>
@@ -143,6 +194,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="date" name="termino" class="form-control">
             </div>
             <div class="mb-3">
+                <label for="imagem" class="form-label">Imagem ou logo do projeto (opcional)</label>
+                <input type="file" id="imagem" name="imagem" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp">
+                <div class="form-text">Formatos JPEG, PNG, GIF ou WebP. Tamanho máximo: 5 MB.</div>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Situação</label>
                 <select name="situacao" class="form-select" required>
                     <option value="">Selecione...</option>
@@ -151,6 +207,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="concluído">Concluído</option>
                 </select>
             </div>
+
+            <h5 class="mt-4">Links do projeto</h5>
+            <p class="text-muted">Adicione links para o site, repositório, download ou outros materiais. Os links são opcionais.</p>
+            <div id="links-container">
+                <div class="row mb-2 link-item">
+                    <div class="col">
+                        <input type="text" name="links[0][rotulo]" class="form-control" placeholder="Nome do link (ex.: Site do projeto)" maxlength="100">
+                    </div>
+                    <div class="col">
+                        <input type="url" name="links[0][url]" class="form-control" placeholder="https://..." maxlength="2048">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-danger remove-link">Remover</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mb-3" id="add-link"><i class="bi bi-plus"></i>
+                Adicionar link</button>
 
             <h5 class="mt-4">Participantes</h5>
             <small>Insira pelo menos 2 participantes</small>
@@ -202,6 +276,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     let participanteIndex = 2;
+    let linkIndex = 1;
+
+    document.getElementById('add-link').addEventListener('click', function() {
+        const container = document.getElementById('links-container');
+        const div = document.createElement('div');
+        div.classList.add('row', 'mb-2', 'link-item');
+        div.innerHTML = `
+        <div class="col">
+            <input type="text" name="links[${linkIndex}][rotulo]" class="form-control" placeholder="Nome do link (ex.: Site do projeto)" maxlength="100">
+        </div>
+        <div class="col">
+            <input type="url" name="links[${linkIndex}][url]" class="form-control" placeholder="https://..." maxlength="2048">
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-danger remove-link">Remover</button>
+        </div>`;
+        container.appendChild(div);
+        linkIndex++;
+    });
+
     document.getElementById('add-participante').addEventListener('click', function() {
         const container = document.getElementById('participantes-container');
         const div = document.createElement('div');
@@ -228,6 +322,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 
     document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('remove-link')) {
+            e.target.closest('.link-item').remove();
+        }
         if (e.target && e.target.classList.contains('remove-participante')) {
             const row = e.target.closest('.participante-item');
             row.remove();

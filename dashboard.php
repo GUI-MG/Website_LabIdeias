@@ -8,13 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 
 $usuarioLogado = $_SESSION['usuario'];
 
-// Conexão com banco
-$host = 'localhost';
-$db   = 'bd_lab_ideias';
-$user = 'root';
-$pass = '';
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) die("Erro na conexão: " . $conn->connect_error);
+require_once 'db.php'; // Inclui o arquivo de conexão com o banco de dados
 
 // Buscar número de ideias cadastradas
 $resultIdeias = $conn->query("SELECT COUNT(*) AS total FROM ideia");
@@ -23,6 +17,10 @@ $totalIdeias = $resultIdeias->fetch_assoc()['total'] ?? 0;
 // Buscar número de projetos cadastrados
 $resultProjetos = $conn->query("SELECT COUNT(*) AS total FROM projeto");
 $totalProjetos = $resultProjetos->fetch_assoc()['total'] ?? 0;
+
+// Buscar número de participações cadastradas
+$resultParticipacoes = $conn->query("SELECT COUNT(*) AS total FROM participacao");
+$totalParticipacoes = $resultParticipacoes->fetch_assoc()['total'] ?? 0;
 
 // Buscar número de usuários cadastrados
 $resultUsuarios = $conn->query("SELECT COUNT(*) AS total FROM usuario");
@@ -126,7 +124,7 @@ $conn->close();
         <div class="row g-4">
 
             <!-- Container: Gerenciamento de Ideias -->
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
                 <div class="card card-container p-4 bg-light">
                     <h4><i class="bi bi-lightbulb-fill text-warning"></i> Ideias</h4>
                     <p>Total cadastradas: <strong><?= $totalIdeias ?></strong></p>
@@ -137,7 +135,7 @@ $conn->close();
             </div>
 
             <!-- Container: Gerenciamento de Projetos -->
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
                 <div class="card card-container p-4 bg-light">
                     <h4><i class="bi bi-kanban-fill text-success"></i> Projetos</h4>
                     <p>Total cadastrados: <strong><?= $totalProjetos ?></strong></p>
@@ -148,11 +146,22 @@ $conn->close();
             </div>
 
             <!-- Container: Gerenciamento de Usuários -->
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
                 <div class="card card-container p-4 bg-light">
                     <h4><i class="bi bi-people-fill text-info"></i> Usuários</h4>
                     <p>Total cadastrados: <strong><?= $totalUsuarios ?></strong></p>
                     <a href="manage_usuarios.php" class="btn btn-info btn-dashboard text-white">
+                        Acessar Gerenciamento
+                    </a>
+                </div>
+            </div>
+
+            <!-- Container: Gerenciamento de Participações -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-container p-4 bg-light">
+                    <h4><i class="bi bi-trophy-fill text-warning"></i> Participações</h4>
+                    <p>Total cadastradas: <strong><?= $totalParticipacoes ?></strong></p>
+                    <a href="manage_participacoes.php" class="btn btn-warning btn-dashboard">
                         Acessar Gerenciamento
                     </a>
                 </div>

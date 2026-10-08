@@ -31,6 +31,18 @@ function exibirProjeto(PDO $pdo, int $id): void {
       } else {
           echo "        <p id='conteudoTexto' class='card-text'>$resumo</p>";
       }
+      $stmtLinks = $pdo->prepare("SELECT rotulo, url FROM link_projeto WHERE fk_projeto_id = :id ORDER BY id");
+      $stmtLinks->execute([':id' => $id]);
+      $links = $stmtLinks->fetchAll(PDO::FETCH_ASSOC);
+      if ($links) {
+          echo "<h5 class='mt-4'>Links do projeto</h5><ul class='list-unstyled'>";
+          foreach ($links as $link) {
+              $rotulo = htmlspecialchars($link['rotulo'], ENT_QUOTES, 'UTF-8');
+              $url = htmlspecialchars($link['url'], ENT_QUOTES, 'UTF-8');
+              echo "<li class='mb-2'><a href='$url' target='_blank' rel='noopener noreferrer'>$rotulo <i class='bi bi-box-arrow-up-right'></i></a></li>";
+          }
+          echo "</ul>";
+      }
       echo "   </div>";
       echo "</div>";
 

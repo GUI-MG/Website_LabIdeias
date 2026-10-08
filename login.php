@@ -1,17 +1,7 @@
 <?php
 session_start(); // Inicia a sessão
 
-// Dados de conexão
-$host = 'localhost';
-$db   = 'bd_lab_ideias';
-$user = 'root';
-$pass = '';
-
-// Conexão com o banco
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
+require_once 'db.php'; // Inclui o arquivo de conexão com o banco de dados
 
 $mensagem = '';
 

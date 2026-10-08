@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21/07/2026 às 21:35
+-- Tempo de geração: 08/10/2026 às 20:06
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -40,6 +40,31 @@ CREATE TABLE `ideia` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `link_projeto`
+--
+
+CREATE TABLE `link_projeto` (
+  `id` int(11) NOT NULL,
+  `fk_projeto_id` int(11) NOT NULL,
+  `rotulo` varchar(100) NOT NULL,
+  `url` varchar(2048) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `link_projeto`
+--
+
+INSERT INTO `link_projeto` (`id`, `fk_projeto_id`, `rotulo`, `url`) VALUES
+(3, 6, 'GitHub', 'https://github.com/MichelSchauren/cuidado-idosos-app'),
+(4, 6, 'Site Cuidaê', 'https://cuidado-idosos-app.vercel.app/'),
+(5, 4, 'GitHub', 'https://github.com/GUI-MG/Website_LabIdeias'),
+(6, 4, 'Site LabIdeias', 'https://labideias.infinityfree.io/'),
+(7, 3, 'GitHub', 'https://github.com/ivnls/M-CHAT'),
+(8, 3, 'Site MCHAT Digital', 'https://m-chat-seven.vercel.app/');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `participa`
 --
 
@@ -47,6 +72,24 @@ CREATE TABLE `participa` (
   `fk_projeto_id` int(11) DEFAULT NULL,
   `fk_participacao_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `participa`
+--
+
+INSERT INTO `participa` (`fk_projeto_id`, `fk_participacao_id`) VALUES
+(2, 2),
+(1, 2),
+(2, 3),
+(1, 3),
+(3, 4),
+(4, 4),
+(3, 6),
+(4, 6),
+(6, 7),
+(5, 7),
+(6, 8),
+(5, 8);
 
 -- --------------------------------------------------------
 
@@ -59,6 +102,22 @@ CREATE TABLE `participacao` (
   `nome` varchar(40) DEFAULT NULL,
   `ano` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `participacao`
+--
+
+INSERT INTO `participacao` (`id`, `nome`, `ano`) VALUES
+(1, '2ª Oficina na Semana da Informática', '2024-01-01'),
+(2, 'Salão IFRS', '2024-01-01'),
+(3, 'Mostra técnica do Campus Feliz', '2024-01-01'),
+(4, 'Mostra técnica do Campus Feliz', '2025-01-01'),
+(5, '3ª Oficina na Semana da Informática', '2025-01-01'),
+(6, 'Mostra da Semana da Informática', '2025-01-01'),
+(7, '14ª Mostra Técnica do Campus Feliz', '2026-01-01'),
+(8, '11º Salão de Pesquisa, Extensão e Ensino', '2026-01-01'),
+(9, 'Oficina   •   Primeiros Passos na Web', '2026-01-01'),
+(10, 'Oficina • Ferramentas de prototipagem', '2026-01-01');
 
 -- --------------------------------------------------------
 
@@ -107,6 +166,7 @@ CREATE TABLE `projeto` (
   `situacao` varchar(60) DEFAULT NULL,
   `inicio` date DEFAULT NULL,
   `termino` date DEFAULT NULL,
+  `imagem` varchar(255) DEFAULT NULL,
   `fk_ideia_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,13 +174,13 @@ CREATE TABLE `projeto` (
 -- Despejando dados para a tabela `projeto`
 --
 
-INSERT INTO `projeto` (`id`, `titulo`, `resumo`, `descricao`, `situacao`, `inicio`, `termino`, `fk_ideia_id`) VALUES
-(1, 'SECE', 'O IFRS campus Feliz busca aproximar alunos do mercado por meio de estágios, gerenciados pelo setor responsável. Devido ao alto volume de dúvidas repetidas, propõe-se um chatbot no site para automatizar respostas e agilizar o atendimento.', 'O IFRS campus Feliz oferece cursos de níveis médio e superior que possibilitam a realização de estágios, obrigatórios ou não, com o objetivo de aproximar os alunos do mercado de trabalho. O setor de estágio do campus organiza e controla o processo, exigindo a entrega de documentos e relatórios. Devido ao grande volume de dúvidas semelhantes enviadas por e-mail, surgiu a necessidade de automatizar as respostas por meio de um chatbot integrado ao site da instituição, visando agilizar e tornar o atendimento mais eficiente.', 'concluído', '2024-01-01', '2024-12-31', NULL),
-(2, 'App de ajuda nas Enchentes', 'Devido às enchentes no RS, surgiu a proposta de um aplicativo para conectar voluntários e afetados, começando pelo Vale do Caí. O app contará com geolocalização, pedidos de ajuda, eventos e doações. O objetivo é facilitar a organização da assistência em desastres climáticos.', 'Devido às enchentes no Rio Grande do Sul em maio, identificou-se a dificuldade na mobilização de ajuda por falta de comunicação entre voluntários e pessoas afetadas. Como solução, propõe-se a criação de um aplicativo que facilite essa conexão, especialmente na região do Vale do Caí, com potencial de expansão para todo o estado. O objetivo é desenvolver um modelo teórico do app, que contará com interface simples, sistema de geolocalização similar ao Google Maps e funcionalidades como criação de eventos, pedidos de ajuda e gerenciamento de doações (alimentos, roupas, mão de obra, etc.).', 'concluído', '2024-01-01', '2024-12-31', NULL),
-(3, 'MCHAT Digital', 'O projeto propõe uma página web para automatizar o diagnóstico do TEA em crianças, com base em respostas dos pais a um questionário. O sistema usará uma fórmula matemática para gerar diagnósticos automáticos. O objetivo é agilizar o processo e garantir diagnósticos mais precoces e precisos.', 'O projeto propõe a criação de uma página web para tornar mais eficiente o diagnóstico do Transtorno do Espectro Autista (TEA) em crianças, automatizando o processo atualmente feito manualmente por médicos com o apoio de instituições como a APAE. O sistema online permitirá que os pais respondam remotamente a um questionário cujas respostas serão analisadas por uma fórmula matemática, gerando um diagnóstico automático. O objetivo é agilizar o processo, otimizando o tempo dos profissionais de saúde e promovendo um diagnóstico precoce e preciso, essencial para garantir melhor qualidade de vida de pessoas com esta condição.', 'em andamento', '2025-01-01', NULL, NULL),
-(4, 'Web Site Laboratório de Ideias', 'O projeto Laboratório de Ideias do IFRS Campus Feliz transforma demandas em projetos práticos. Para organizar as iniciativas, será criado um site com informações dos projetos, autores e ilustrações. O site também permitirá o envio de novas ideias por externos.', 'O projeto Laboratório de Ideias, do IFRS Campus Feliz, visa reunir e debater demandas para transformá-las em projetos práticos. Diante do número crescente de iniciativas desenvolvidas, surgiu a necessidade de criar um site que reúna informações sobre todos os projetos já realizados, seus autores, ilustrações e dados relevantes. O site também permitirá que pessoas externas ao projeto submetam novas ideias ou demandas, contribuindo para a continuidade e renovação das ações do projeto.', 'em andamento', '2025-01-01', NULL, NULL),
-(5, 'Comunica++', 'Indivíduos com Transtorno do Espectro Autista tendem a apresentar dificuldade de comunicação verbal e demais limitações. A proposta deste projeto é desenvolver um aplicativo de comunicação alternativa que auxilie pessoas não verbais a se expressarem de forma prática e intuitiva.', 'Este projeto consiste no desenvolvimento de um aplicativo de comunicação alternativa projetado para apoiar indivíduos com Transtorno do Espectro Autista (TEA) e outras pessoas não verbais que enfrentam severas barreiras de interação. A solução visa mitigar as frustrações e as dificuldades comportamentais causadas pela limitação na fala, oferecendo uma ferramenta prática e intuitiva para a expressão diária de sentimentos, desejos e necessidades. Ao facilitar a conexão com o ambiente social, a plataforma atua diretamente na promoção da autonomia, na redução do isolamento e no fortalecimento do bem-estar dos usuários e de suas redes de apoio.', 'planejamento', '2026-05-07', NULL, NULL),
-(6, 'Cuidados de idosos', 'Hoje em dia familiares e cuidadores podem ter dificuldades no acompanhamento de medicamentos e tratamentos de idosos necessitados. Por isso busca-se criar um sistema para auxiliar no cuidado e monitoramento de idosos e pessoas com alguma necessidade específica.', 'Este projeto consiste no desenvolvimento de um sistema inteligente de monitoramento e auxílio ao cuidado de idosos e pessoas com necessidades específicas, criado para enfrentar diretamente os desafios do envelhecimento populacional e a escassez de cuidadores qualificados. A solução tecnológica busca otimizar o acompanhamento de rotinas médicas, mitigar riscos de quedas e oferecer respostas rápidas a emergências e limitações decorrentes de doenças neurodegenerativas, como o Alzheimer. Ao integrar um suporte contínuo, seguro e acessível tanto para famílias quanto para instituições de longa permanência, a plataforma promove a qualidade de vida, a dignidade e um cuidado humanizado para indivíduos que dependem de assistência constante.', 'planejamento', '2026-06-03', NULL, NULL);
+INSERT INTO `projeto` (`id`, `titulo`, `resumo`, `descricao`, `situacao`, `inicio`, `termino`, `imagem`, `fk_ideia_id`) VALUES
+(1, 'SECE', 'O IFRS campus Feliz busca aproximar alunos do mercado por meio de estágios, gerenciados pelo setor responsável. Devido ao alto volume de dúvidas repetidas, propõe-se um chatbot no site para automatizar respostas e agilizar o atendimento.', 'O IFRS campus Feliz oferece cursos de níveis médio e superior que possibilitam a realização de estágios, obrigatórios ou não, com o objetivo de aproximar os alunos do mercado de trabalho. O setor de estágio do campus organiza e controla o processo, exigindo a entrega de documentos e relatórios. Devido ao grande volume de dúvidas semelhantes enviadas por e-mail, surgiu a necessidade de automatizar as respostas por meio de um chatbot integrado ao site da instituição, visando agilizar e tornar o atendimento mais eficiente.', 'concluído', '2024-01-01', '2024-12-31', NULL, NULL),
+(2, 'App de ajuda nas Enchentes', 'Devido às enchentes no RS, surgiu a proposta de um aplicativo para conectar voluntários e afetados, começando pelo Vale do Caí. O app contará com geolocalização, pedidos de ajuda, eventos e doações. O objetivo é facilitar a organização da assistência em desastres climáticos.', 'Devido às enchentes no Rio Grande do Sul em maio, identificou-se a dificuldade na mobilização de ajuda por falta de comunicação entre voluntários e pessoas afetadas. Como solução, propõe-se a criação de um aplicativo que facilite essa conexão, especialmente na região do Vale do Caí, com potencial de expansão para todo o estado. O objetivo é desenvolver um modelo teórico do app, que contará com interface simples, sistema de geolocalização similar ao Google Maps e funcionalidades como criação de eventos, pedidos de ajuda e gerenciamento de doações (alimentos, roupas, mão de obra, etc.).', 'concluído', '2024-01-01', '2024-12-31', NULL, NULL),
+(3, 'MCHAT Digital', 'O projeto propõe uma página web para automatizar o diagnóstico do TEA em crianças, com base em respostas dos pais a um questionário. O sistema usará uma fórmula matemática para gerar diagnósticos automáticos. O objetivo é agilizar o processo e garantir diagnósticos mais precoces e precisos.', 'O projeto propõe a criação de uma página web para tornar mais eficiente o diagnóstico do Transtorno do Espectro Autista (TEA) em crianças, automatizando o processo atualmente feito manualmente por médicos com o apoio de instituições como a APAE. O sistema online permitirá que os pais respondam remotamente a um questionário cujas respostas serão analisadas por uma fórmula matemática, gerando um diagnóstico automático. O objetivo é agilizar o processo, otimizando o tempo dos profissionais de saúde e promovendo um diagnóstico precoce e preciso, essencial para garantir melhor qualidade de vida de pessoas com esta condição.', 'concluído', '2025-01-01', '2025-12-31', 'uploads/projetos/439c5d6c1a23f5e8cbf2ebd3e42df9d9.png', NULL),
+(4, 'Web Site Laboratório de Ideias', 'O projeto Laboratório de Ideias do IFRS Campus Feliz transforma demandas em projetos práticos. Para organizar as iniciativas, será criado um site com informações dos projetos, autores e ilustrações. O site também permitirá o envio de novas ideias por externos.', 'O projeto Laboratório de Ideias, do IFRS Campus Feliz, visa reunir e debater demandas para transformá-las em projetos práticos. Diante do número crescente de iniciativas desenvolvidas, surgiu a necessidade de criar um site que reúna informações sobre todos os projetos já realizados, seus autores, ilustrações e dados relevantes. O site também permitirá que pessoas externas ao projeto submetam novas ideias ou demandas, contribuindo para a continuidade e renovação das ações do projeto.', 'concluído', '2025-01-01', '2026-10-07', 'uploads/projetos/7eb4c7d785f09b975e451f51a05f2324.png', NULL),
+(5, 'MinhaVoz', 'Indivíduos com Transtorno do Espectro Autista tendem a apresentar dificuldade de comunicação verbal e demais limitações. A proposta deste projeto é desenvolver um aplicativo de comunicação alternativa que auxilie pessoas não verbais a se expressarem de forma prática e intuitiva.', 'Este projeto consiste no desenvolvimento de um aplicativo de comunicação alternativa projetado para apoiar indivíduos com Transtorno do Espectro Autista (TEA) e outras pessoas não verbais que enfrentam severas barreiras de interação. A solução visa mitigar as frustrações e as dificuldades comportamentais causadas pela limitação na fala, oferecendo uma ferramenta prática e intuitiva para a expressão diária de sentimentos, desejos e necessidades. Ao facilitar a conexão com o ambiente social, a plataforma atua diretamente na promoção da autonomia, na redução do isolamento e no fortalecimento do bem-estar dos usuários e de suas redes de apoio.', 'em andamento', '2026-05-07', NULL, 'uploads/projetos/9591cff42b489b282d016077356be129.png', NULL),
+(6, 'Cuidaê', 'Hoje em dia familiares e cuidadores podem ter dificuldades no acompanhamento de medicamentos e tratamentos de idosos necessitados. Por isso busca-se criar um sistema para auxiliar no cuidado e monitoramento de idosos e pessoas com alguma necessidade específica.', 'Este projeto consiste no desenvolvimento de um sistema inteligente de monitoramento e auxílio ao cuidado de idosos e pessoas com necessidades específicas, criado para enfrentar diretamente os desafios do envelhecimento populacional e a escassez de cuidadores qualificados. A solução tecnológica busca otimizar o acompanhamento de rotinas médicas, mitigar riscos de quedas e oferecer respostas rápidas a emergências e limitações decorrentes de doenças neurodegenerativas, como o Alzheimer. Ao integrar um suporte contínuo, seguro e acessível tanto para famílias quanto para instituições de longa permanência, a plataforma promove a qualidade de vida, a dignidade e um cuidado humanizado para indivíduos que dependem de assistência constante.', 'em andamento', '2026-06-03', NULL, 'uploads/projetos/3dd1873e2dbc6ce8fa086bef8042b292.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -146,13 +206,6 @@ INSERT INTO `realiza` (`fk_projeto_id`, `fk_participante_id`) VALUES
 (2, 5),
 (2, 6),
 (2, 7),
-(3, 1),
-(3, 8),
-(3, 9),
-(4, 1),
-(4, 10),
-(4, 6),
-(4, 4),
 (6, 1),
 (6, 14),
 (6, 15),
@@ -163,7 +216,14 @@ INSERT INTO `realiza` (`fk_projeto_id`, `fk_participante_id`) VALUES
 (5, 12),
 (5, 13),
 (5, 6),
-(5, 9);
+(5, 9),
+(4, 1),
+(4, 10),
+(4, 6),
+(4, 4),
+(3, 1),
+(3, 8),
+(3, 9);
 
 -- --------------------------------------------------------
 
@@ -193,6 +253,13 @@ INSERT INTO `usuario` (`id`, `usuario`, `senha`) VALUES
 --
 ALTER TABLE `ideia`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_link_projeto_projeto` (`fk_projeto_id`);
 
 --
 -- Índices de tabela `participa`
@@ -244,10 +311,16 @@ ALTER TABLE `ideia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de tabela `participacao`
 --
 ALTER TABLE `participacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `participante`
@@ -270,6 +343,12 @@ ALTER TABLE `usuario`
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `link_projeto`
+--
+ALTER TABLE `link_projeto`
+  ADD CONSTRAINT `FK_link_projeto_projeto` FOREIGN KEY (`fk_projeto_id`) REFERENCES `projeto` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `participa`
